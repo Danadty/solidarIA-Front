@@ -37,11 +37,11 @@ Este proyecto está dividido en **dos repositorios independientes**:
 
 | Nombre     | Color | Uso sugerido |
 | ---------- | ----- | ------------ |
-| Primario   | –     | –            |
-| Secundario | –     | –            |
-| Acento     | –     | –            |
-| Fondo      | –     | –            |
-| Texto      | –     | –            |
+| Primario   | –     | #f6f1e2      |
+| Secundario | –     | #497568      |
+| Acento     | –     | #334c47      |
+| Fondo      | –     | #699689      |
+| Texto      | –     | #98b9a1      |
 
 ---
 
