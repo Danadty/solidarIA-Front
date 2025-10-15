@@ -1,9 +1,7 @@
 "use client"
 import "./PasarelaPagos.css";
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
-import { useState } from "react";
-
-initMercadoPago('APP_USR-5fa1ad26-4140-4dd7-8583-7cdadd3b3c96');
+import { useState, useEffect } from "react";
 
 const ongs = [
     "La Nazarena",
@@ -12,39 +10,40 @@ const ongs = [
     "Empujar"
 ];
 
-
 const PasarelaPagos = () => {
+
+//Accedemos a la clave pública de MercadoPago desde las variables de entorno
+    initMercadoPago(process.env.NEXT_PUBLIC_MERCADOPAGO_PUBLIC_KEY || "");
 
 //Llamando a la API para crear la preferencia de pago
     const [preferenceId, setPreferenceId] = useState<string | null>(null);
     const [ong, setOng] = useState(ongs[0]);
     const [monto, setMonto] = useState(100);
 
-
-    const createPreference = async (e: React.FormEvent) => {
+         const createPreference = async (e: React.FormEvent) => {
         e.preventDefault();
         setPreferenceId(null);
         
         try {           
-            const response = await fetch("http://localhost:8080/create_preference",
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        items: [
-                            {
-                                id: "donation",
-                                title: `Donación a: ${ong}`,
-                                quantity: 1,
-                                unit_price: Number(monto),
-                            }
-                        ],
-                    })
-                }
-            )
-            console.log("Enviando al backend:", response.body);
+            
+            const requestBody = {
+                items: [
+                    {
+                        id: "donation",
+                        title: `Donación a: ${ong}`,
+                        quantity: 1,
+                        unit_price: Number(monto),
+                    }
+                ],
+            };
+
+            console.log("Enviando al backend:", requestBody);
+
+            const response = await fetch('/api/create-preference', {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(requestBody)
+            });
 
             if (response.ok) {
                 const data = await response.json();
@@ -56,9 +55,9 @@ const PasarelaPagos = () => {
         } catch (error) {
             console.error("Error creating preference:", error);
         }
-    };
-
     
+    }
+
 
     return (
             <div className="container-pasarela">
