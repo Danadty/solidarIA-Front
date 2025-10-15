@@ -1,7 +1,7 @@
 "use client"
 import "./PasarelaPagos.css";
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const ongs = [
     "La Nazarena",
@@ -9,18 +9,19 @@ const ongs = [
     "Integrar",
     "Empujar"
 ];
-
-const PasarelaPagos = () => {
-
 //Accedemos a la clave pública de MercadoPago desde las variables de entorno
     initMercadoPago(process.env.NEXT_PUBLIC_MERCADOPAGO_PUBLIC_KEY || "");
 
+const PasarelaPagos = () => {
+
+
 //Llamando a la API para crear la preferencia de pago
     const [preferenceId, setPreferenceId] = useState<string | null>(null);
+    const [paymentUrl, setPaymentUrl] = useState('');
     const [ong, setOng] = useState(ongs[0]);
     const [monto, setMonto] = useState(100);
 
-         const createPreference = async (e: React.FormEvent) => {
+const createPreference = async (e: React.FormEvent) => {
         e.preventDefault();
         setPreferenceId(null);
         
@@ -47,9 +48,15 @@ const PasarelaPagos = () => {
 
             if (response.ok) {
                 const data = await response.json();
-                setPreferenceId(data.preferenceId)
-              
                 console.log("Respuesta del backend:", data);
+               
+
+
+                setPreferenceId(data.id)
+                setPaymentUrl(data.init_point);
+              
+            } else{
+                console.error("Error en la respuesta del servidor:", response.statusText);
             }
 
         } catch (error) {
@@ -93,7 +100,10 @@ const PasarelaPagos = () => {
                         </button>
                         {preferenceId &&
                             <div style={{ width: '300px', marginTop: 18 }}>
-                            <Wallet initialization={{ preferenceId: preferenceId }} />
+                            <Wallet 
+                                initialization={{ preferenceId: preferenceId }}
+                            
+                            />
                             </div>
                         }
                     </form>
