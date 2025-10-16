@@ -1,7 +1,7 @@
 "use client"
-import "./PasarelaPagos.css";
-import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
 import { useState } from "react";
+import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
+import "./PasarelaPagos.css";
 
 const ongs = [
     "La Nazarena",
@@ -10,10 +10,10 @@ const ongs = [
     "Empujar"
 ];
 //Accedemos a la clave pública de MercadoPago desde las variables de entorno
+    console.log("USANDO CLAVE PÚBLICA:", process.env.NEXT_PUBLIC_MERCADOPAGO_PUBLIC_KEY);
     initMercadoPago(process.env.NEXT_PUBLIC_MERCADOPAGO_PUBLIC_KEY || "");
 
 const PasarelaPagos = () => {
-
 
 //Llamando a la API para crear la preferencia de pago
     const [preferenceId, setPreferenceId] = useState<string | null>(null);
@@ -21,8 +21,13 @@ const PasarelaPagos = () => {
     const [ong, setOng] = useState(ongs[0]);
     const [monto, setMonto] = useState(100);
 
+    console.log("Componente PasarelaPagos se ha renderizado.");
+
 const createPreference = async (e: React.FormEvent) => {
         e.preventDefault();
+        console.log("Botón presionado. Iniciando creación de preferencia...");
+
+        // Limpiamos el ID viejo para que desaparezca el botón anterior si se genera uno nuevo
         setPreferenceId(null);
         
         try {           
@@ -51,7 +56,6 @@ const createPreference = async (e: React.FormEvent) => {
                 console.log("Respuesta del backend:", data);
                
 
-
                 setPreferenceId(data.id)
                 setPaymentUrl(data.init_point);
               
@@ -64,8 +68,8 @@ const createPreference = async (e: React.FormEvent) => {
         }
     
     }
-
-
+    
+    
     return (
             <div className="container-pasarela">
                 <div className="pasarela-title">
