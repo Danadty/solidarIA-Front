@@ -10,8 +10,8 @@ const ongs = [
     "Empujar"
 ];
 //Accedemos a la clave pública de MercadoPago desde las variables de entorno
-    console.log("USANDO CLAVE PÚBLICA:", process.env.NEXT_PUBLIC_MERCADOPAGO_PUBLIC_KEY);
-    initMercadoPago(process.env.NEXT_PUBLIC_MERCADOPAGO_PUBLIC_KEY || "");
+console.log("USANDO CLAVE PÚBLICA:", process.env.NEXT_PUBLIC_MERCADOPAGO_PUBLIC_KEY);
+initMercadoPago(process.env.NEXT_PUBLIC_MERCADOPAGO_PUBLIC_KEY || "");
 
 const PasarelaPagos = () => {
 
