@@ -1,7 +1,7 @@
 "use client";
 
 import { Card, CardContent, Typography, Avatar, Stack } from "@mui/material";
-import { mockExample } from "../mocks/user";
+import { mockExample } from "../../mocks/user";
 
 type ComponentExampleProps = {
   example?: typeof mockExample;
