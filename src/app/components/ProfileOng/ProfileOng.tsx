@@ -212,7 +212,7 @@ return (
             <div className="profile-projects-grid">
               {latestProjects.map(project => (
                 <div key={project.id} className="project-card">
-                  <img src={project.imageUrl} alt={project.title} width={300} height={180} objectFit="cover" />
+                  <img src={project.imageUrl} alt={project.title} width={300} height={180}/>
                   <div className="project-card-content">
                     <h4>{project.title}</h4>
                     <p>{project.summary}</p>
