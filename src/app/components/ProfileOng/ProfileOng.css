@@ -1,148 +1,368 @@
-*,
-*::before,
-*::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/* --- Variables Globales y Reset Básico --- */
+:root {
+  --primary-color: #007bff;
+  --primary-dark: #0056b3;
+  --secondary-color: #6c757d;
+  --light-gray: #f8f9fa;
+  --border-color: #dee2e6;
+  --text-color: #333;
+  --text-light: #555;
+  --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  --card-radius: 12px;
 }
 
-body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    line-height: 1.6;
-    background-color: #f4f7f6;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-.container-ong {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-    width: 100%;
-    margin: 3rem auto; 
-    padding: 2.5rem;
-    background-color: #ffffff;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
+/* --- Contenedor Principal --- */
+.profile-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--light-gray);
+  color: var(--text-color);
 }
 
-.content-img-ong, 
-.content-info-ong {
-    flex: 1;
+/* --- 1. Encabezado (Portada y Perfil) --- */
+.profile-header {
+  position: relative;
+  background-color: #fff;
+  border-bottom: 1px solid var(--border-color);
 }
 
-.logo-ong {
-    width: 50%;
-    height: auto;
-    display: block; 
-    border-radius: 1.5rem;
-    object-fit: cover;
+.profile-cover-image-wrapper {
+  position: relative;
+  width: 100%;
+  object-fit: cover;
+  height: 250px; /* Altura de la imagen de portada */
+}
+
+.profile-cover-img {
+  object-fit: cover;
+}
+
+.profile-header-content {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 0 2rem 1.5rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  transform: translateY(-50px); /* Sube el contenido sobre la portada */
+}
+
+.profile-picture-wrapper {
+  border: 5px solid #fff;
+  border-radius: 50%;
+  background-color: #fff;
+  width: 160px; /* 150px + 5px borde * 2 */
+  height: 160px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+}
+
+.profile-picture-img {
+  border-radius: 50%;
+  display: block;
+  object-fit: cover;
+}
+
+.profile-name {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-left: 1.5rem;
+  flex-grow: 1;
+  /* Ajuste para que el nombre baje un poco */
+  align-self: flex-end; 
+  padding-bottom: 0.5rem;
+}
+
+.profile-cta-buttons {
+  display: flex;
+  gap: 0.75rem;
+  flex-shrink: 0;
+  padding-bottom: 0.5rem; /* Alinea con el nombre */
+}
+
+/* --- Botones --- */
+.profile-button-primary,
+.profile-button-secondary {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 50px;
+  border: 2px solid var(--primary-color);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.profile-button-primary {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+.profile-button-primary:hover {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+
+.profile-button-secondary {
+  background-color: #fff;
+  color: var(--primary-color);
+}
+.profile-button-secondary:hover {
+  background-color: var(--primary-color);
+  color: #fff;
 }
 
 
-.content-info-ong {
-    display: flex;
-    flex-direction: column;
+/* --- 2. Cuerpo Principal (Layout) --- */
+.profile-main {
+  display: flex;
+  flex-direction: column; /* Apilado en móvil */
+  gap: 1.5rem;
+  padding: 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-top: -30px; /* Compensa el espacio del header */
+}
+
+/* --- Widgets y Secciones (Base) --- */
+.profile-widget,
+.profile-section {
+  background-color: #fff;
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  padding: 1.5rem;
+}
+
+.widget-title,
+.section-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.5rem;
+}
+
+/* --- Columna Izquierda (Sidebar) --- */
+.profile-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.profile-description {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-light);
+}
+
+.profile-stats {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+.profile-alliances {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+}
+
+.alliance-item img {
+  border-radius: 8px;
+  object-fit: contain;
+  filter: grayscale(100%);
+  opacity: 0.7;
+  transition: all 0.3s ease;
+}
+.alliance-item img:hover {
+  filter: grayscale(0%);
+  opacity: 1;
+}
+
+.profile-contact-info p,
+.profile-socials a {
+  font-size: 0.95rem;
+  color: var(--text-light);
+  margin-bottom: 0.5rem;
+  text-decoration: none;
+}
+.profile-socials a {
+  margin-right: 1rem;
+  font-weight: 500;
+  color: var(--primary-color);
+}
+.profile-socials a:hover {
+  text-decoration: underline;
+}
+
+/* --- Columna Derecha (Contenido) --- */
+.profile-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.profile-core-values {
+  display: grid;
+  grid-template-columns: 1fr; /* Apilado en móvil */
+  gap: 1.5rem;
+}
+
+.core-value-item h3 {
+  font-size: 1.1rem;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+.core-value-item p,
+.core-value-item li {
+  font-size: 0.95rem;
+  color: var(--text-light);
+  line-height: 1.6;
+}
+.core-value-item ul {
+  padding-left: 1.2rem;
+}
+
+.profile-projects-grid {
+  display: grid;
+  grid-template-columns: 1fr; /* 1 columna en móvil */
+  gap: 1.5rem;
+}
+
+.project-card {
+  border: 1px solid var(--border-color);
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.3s ease;
+}
+.project-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.project-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+}
+
+.project-card-content {
+  padding: 1rem;
+}
+.project-card-content h4 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+.project-card-content p {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  margin-bottom: 1rem;
+}
+.project-card-link {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  text-decoration: none;
+}
+.project-card-link:hover {
+  text-decoration: underline;
+}
+
+.donations-ranking-list {
+  list-style-type: decimal;
+  padding-left: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.donation-item {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  font-size: 0.95rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px dashed var(--border-color);
+}
+.donation-item:last-child {
+  border-bottom: none;
+}
+
+.donation-name {
+  font-weight: 600;
+}
+.donation-details {
+  color: var(--text-light);
+}
+.donation-date {
+  font-style: italic;
+}
+
+/* --- Media Queries (Tablet y Escritorio) --- */
+
+@media (min-width: 768px) {
+  .profile-main {
+    flex-direction: row; /* Columnas lado a lado */
     align-items: flex-start;
-    gap: 1rem;
+  }
+
+  .profile-sidebar {
+    flex-basis: 35%;
+    position: sticky; /* Sidebar fija */
+    top: 1.5rem;
+  }
+
+  .profile-content {
+    flex-basis: 65%;
+  }
+
+  .profile-core-values {
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas */
+  }
+
+  .profile-projects-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columnas */
+  }
 }
 
-
-.title-ong {
-    font-size: 2.25rem; 
-    font-weight: 700;
-    color: #222;
-}
-
-.description-ong {
-    font-size: 1rem;
-    color: #555;
-}
-
-/*
- * 1. CONTENEDOR DE BOTONES
- * Usamos flex para alinearlos y 'gap' para darles espacio.
- */
-.button-container {
-    display: flex;
-    flex-wrap: wrap; /* Permite que los botones se apilen en pantallas pequeñas */
-    justify-content: flex-start; /* Alinea los botones al inicio */
-    gap: 1rem; /* Espacio entre los botones */
-}
-
-/*
- * 2. ESTILO BASE COMPARTIDO
- * Definimos aquí todo lo que tienen en común para no repetir código.
- */
-button {
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
-    font-weight: 600; 
-    text-align: center;
-    text-decoration: none;
-    cursor: pointer;
-    border-radius: 50px; 
-    border: 2px solid transparent; 
-    transition: all 0.3s ease; 
-    flex-shrink: 0; 
-}
-
-
-.button-donation {
-    background-color: #497568; 
-    color: #ffffff;
-    border: none;
-    margin-left: 1rem;
-}
-
-.button-donation:hover,
-.button-donation:focus {
-    background-color: #699689;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.button-aboutong {
-    background-color: #ffffff;
-    color: #98b9a1; 
-    border-color: #98b9a1;
-}
-
-.button-aboutong:hover,
-.button-aboutong:focus {
-    background-color: #98b9a1;
-    color: #fff;
-}
-
-
-
-@media (max-width: 768px) {
-    .container-ong {
-        flex-direction: column;
-        padding: 1.5rem;
-        width: 95%;
-        gap: 1.5rem;
-    }
-
-    .content-img-ong, 
-    .content-info-ong {
-        width: 100%;
-        min-width: auto; 
-    }
-
-    .logo-ong {
-        max-width: 250px;
-        margin: 0 auto;
-    }
-    
-    .content-info-ong {
-        align-items: center;
-        text-align: center;
-    }
-
-    .title-ong {
-        font-size: 1.75rem; 
-    }
-
-    .description-ong {
-        font-size: 0.95rem;
-    }
+@media (min-width: 1024px) {
+  .profile-header-content {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+  .profile-main {
+    padding: 5rem 3rem;
+    margin-top: -30px;
+  }
+  .profile-sidebar {
+    flex-basis: 30%;
+  }
+  .profile-content {
+    flex-basis: 70%;
+  }
 }
