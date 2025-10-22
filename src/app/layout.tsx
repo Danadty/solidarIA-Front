@@ -2,6 +2,7 @@
 import "./globals.css";
 import Header from "./components/Header";
 import { usePathname } from "next/navigation";
+import { AuthProvider } from '../lib';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -10,8 +11,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="es">
       <body>
-        <Header isLoggedIn={isProfilePage} />
-        {children}
+        <AuthProvider>
+          <Header isLoggedIn={isProfilePage} />
+          {children}
+        </AuthProvider>
+        
       </body>
     </html>
   );

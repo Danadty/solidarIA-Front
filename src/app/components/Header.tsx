@@ -39,7 +39,21 @@ export default function Header({ isLoggedIn = false }: HeaderProps) {
 
         {/* Botón login/logout */}
         <div className={styles.sessionBtn}>
-          <button className={styles.btnLogin}>
+          <button
+            className={styles.btnLogin}
+            onClick={() => {
+              if (isLoggedIn) {
+                localStorage.removeItem("token");
+                localStorage.removeItem("email");
+                localStorage.removeItem("role");
+                localStorage.removeItem("userId");
+
+                window.location.href = "/login";
+              } else {
+                window.location.href = "/login";
+              }
+            }}
+          >
             {isLoggedIn ? "Cerrar sesión" : "Iniciar sesión"}
           </button>
         </div>

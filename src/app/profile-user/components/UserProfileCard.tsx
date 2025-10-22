@@ -1,4 +1,3 @@
-
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
@@ -67,7 +66,7 @@ export default function UserProfileCard({ profile }: UserProfileProps) {
         avatar={
           <Avatar 
             sx={{ 
-              bgcolor: red[500],
+              bgcolor: '#fff',
               width: { xs: 100, sm: 120, md: 140, lg: 150, xl: 160 },
               height: { xs: 100, sm: 120, md: 140, lg: 150, xl: 160 },
               borderRadius: 1,
@@ -84,7 +83,7 @@ export default function UserProfileCard({ profile }: UserProfileProps) {
           sx={{ 
             color: 'text.secondary', 
             mt: 0.5, 
-            fontSize: { xs: '1rem', sm: '2rem', md: '3rem', lm:'3rem' },
+            //fontSize: { xs: '1rem', sm: '2rem', md: '3rem', lm:'3rem' },
         
           }}
           >
@@ -94,11 +93,11 @@ export default function UserProfileCard({ profile }: UserProfileProps) {
         //--------------------------descripcion-----------------------------------
         subheader={
           <Typography 
-            variant="body2" 
+            //variant="body2" 
             sx={{ 
               color: 'text.secondary', 
               mt: 0.5, 
-              fontSize: { xs: '0.75rem', sm: '1rem', md: '1.5rem', lm:'1.5rem' },
+              //fontSize: { xs: '0.75rem', sm: '1rem', md: '1.5rem', lm:'1.5rem' },
           
             }}
           >
@@ -138,8 +137,8 @@ export default function UserProfileCard({ profile }: UserProfileProps) {
                   variant="body2" 
                   sx={{
                
-                    fontSize: { xs: '0.5rem', sm: '0.75rem', md: '1.25rem' },
-                    fontWeight: 100,
+                    //fontSize: { xs: '0.5rem', sm: '0.75rem', md: '1.25rem' },
+                    fontWeight: 500,
                   }}
                 >
                   {text_donations}
@@ -174,8 +173,8 @@ export default function UserProfileCard({ profile }: UserProfileProps) {
                     variant="body2" 
                     sx={{
                       
-                      fontSize: { xs: '0.5rem', sm: '0.75rem', md: '1.25rem' },
-                      fontWeight: 100,
+                      //fontSize: { xs: '0.5rem', sm: '0.75rem', md: '1.25rem' },
+                      fontWeight: 500,
                     }}
                   >
                     {text_proyects}
@@ -209,8 +208,8 @@ export default function UserProfileCard({ profile }: UserProfileProps) {
                   <Typography 
                     variant="body2" 
                     sx={{
-                      fontSize: { xs: '0.5rem', sm: '0.75rem', md: '1.25rem' },
-                      fontWeight: 100,
+                      //fontSize: { xs: '0.5rem', sm: '0.75rem', md: '1.25rem' },
+                      fontWeight: 500,
                     }}
                   >
                     {text_volunters}

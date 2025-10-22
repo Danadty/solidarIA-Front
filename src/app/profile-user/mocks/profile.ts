@@ -29,7 +29,7 @@ export const mockUserProfile: UserProfile = {
   id: 'user-profile-123',
   user_id: 'user-123',
   description: 'Apasionado por ayudar a la comunidad.',
-  photo_url: 'https://img.chilango.com/2013/05/plants-vs-zombies.jpg',
+  photo_url: '/globe.svg',
   phone: '+1 (555) 123-4567',
   address: 'Av. Principal 123, Ciudad, País',
   created_at: '2023-05-15T10:30:00Z',

@@ -1,0 +1,90 @@
+.container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  
+    background: linear-gradient(160deg, #f7f5ed 0%, #eafafc 45%, #ffffff 100%);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  
+    background-image: url("/hand-left.png"), url("/hand-right.png");
+    background-repeat: no-repeat, no-repeat;
+    background-position: left 10% bottom 5%, right 10% bottom 5%;
+    background-size: 220px, 220px;
+    opacity: 0.95;
+  }
+  
+  .title {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+  }
+  
+  .form {
+    background-color: #fff;
+    padding: 2.2rem;
+    border-radius: 16px;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 380px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .label {
+    color: #333;
+    font-weight: 500;
+    margin-bottom: 0.2rem;
+  }
+  
+  .input {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 0.8rem;
+    font-size: 1rem;
+  }
+  
+  .input:focus {
+    outline: none;
+    border-color: #44c8ff;
+    box-shadow: 0 0 0 3px rgba(68, 200, 255, 0.25);
+  }
+  
+  .button {
+    margin-top: 0.5rem;
+    background-color: #44c8ff;
+    color: #fff;
+    border: none;
+    padding: 0.9rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  
+  .button:hover {
+    background-color: #1da1f2;
+  }
+  
+  .success {
+    color: green;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 0.5rem;
+  }
+  
+  .error {
+    color: red;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 0.5rem;
+  }
+  
