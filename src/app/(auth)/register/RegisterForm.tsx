@@ -1,101 +1,156 @@
 "use client";
+
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import styles from "./Register.module.css";
-import {UserAPI} from "src/lib";
+import styles from "../../../styles/FormLayout.module.css";
+import { UserAPI } from "src/lib";
+
+type FormState = {
+  name: string;
+  email: string;
+  password: string;
+  confirm: string;
+  accept: boolean;
+};
 
 export default function RegisterForm() {
   const router = useRouter();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [errors, setErrors] = useState<string | null>(null);
+  const [form, setForm] = useState<FormState>({
+    name: "",
+    email: "",
+    password: "",
+    confirm: "",
+    accept: false,
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type, checked } = e.target;
+    setForm((f) => ({ ...f, [name]: type === "checkbox" ? checked : value }));
+  };
+
+  const validate = () => {
+    if (!form.name.trim()) return "El nombre es obligatorio.";
+    if (!/\S+@\S+\.\S+/.test(form.email)) return "Email inválido.";
+    if (form.password.length < 6)
+      return "La contraseña debe tener al menos 6 caracteres.";
+    if (form.password !== form.confirm)
+      return "Las contraseñas no coinciden.";
+    if (!form.accept)
+      return "Debes aceptar los términos y condiciones.";
+    return null;
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError(null);
+    const msg = validate();
+    if (msg) {
+      setErrors(msg);
+      return;
+    }
+
+    setErrors(null);
     setLoading(true);
-  
+
     try {
-      const res = await UserAPI.create({ name, email, password });
+      const res = await UserAPI.create({
+        name: form.name,
+        email: form.email,
+        password: form.password,
+      });
+
       const data = res.data?.data;
-      console.log("Usuario creado:", data);
-  
-      if (!data || !data.id) {
-        throw new Error("No se recibió el usuario del servidor");
-      }
-  
+      if (!data?.id) throw new Error("No se recibió el usuario del servidor");
+
       localStorage.setItem("userId", data.id);
       localStorage.setItem("email", data.email);
       localStorage.setItem("role", data.role);
-  
-      router.push("/login");
+
+      alert("Cuenta creada con éxito. Ahora podés iniciar sesión.");
+      router.push("/login?registered=1");
     } catch (err: any) {
-      const msg =
+      setErrors(
         err.response?.data?.message ||
         err.message ||
-        "Error de conexión o datos inválidos";
-      setError(msg);
+        "Error de conexión o datos inválidos"
+      );
     } finally {
       setLoading(false);
     }
   };
-  
 
   return (
-    <div className={styles.container}>
-      <h1 className={styles.title}>Crear cuenta</h1>
-      <form onSubmit={handleSubmit} className={styles.form}>
-        {error && <p className={styles.error}>{error}</p>}
+    <form className={styles.form} onSubmit={handleSubmit} noValidate>
+      {!!errors && <div className={styles.error}>{errors}</div>}
 
-        <div className={styles.inputGroup}>
-          <label htmlFor="name" className={styles.label}>Nombre</label>
-          <input
-            id="name"
-            type="text"
-            placeholder="Tu nombre"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className={styles.input}
-            required
-          />
-        </div>
+      <label className={styles.label} htmlFor="name">Nombre y apellido</label>
+      <input
+        id="name"
+        name="name"
+        type="text"
+        placeholder="Ej: Ana Pérez"
+        value={form.name}
+        onChange={handleChange}
+        className={styles.input}
+        required
+      />
 
-        <div className={styles.inputGroup}>
-          <label htmlFor="email" className={styles.label}>Email</label>
-          <input
-            id="email"
-            type="email"
-            placeholder="Ej: tuemail@gmail.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className={styles.input}
-            required
-          />
-        </div>
+      <label className={styles.label} htmlFor="email">Email</label>
+      <input
+        id="email"
+        name="email"
+        type="email"
+        placeholder="tuemail@gmail.com"
+        value={form.email}
+        onChange={handleChange}
+        className={styles.input}
+        required
+      />
 
-        <div className={styles.inputGroup}>
-          <label htmlFor="password" className={styles.label}>Contraseña</label>
-          <input
-            id="password"
-            type="password"
-            placeholder="*****"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className={styles.input}
-            required
-          />
-        </div>
+      <label className={styles.label} htmlFor="password">Contraseña</label>
+      <input
+        id="password"
+        name="password"
+        type="password"
+        placeholder="Mínimo 6 caracteres"
+        value={form.password}
+        onChange={handleChange}
+        className={styles.input}
+        required
+      />
 
-        <button type="submit" className={styles.button} disabled={loading}>
-          {loading ? "Creando..." : "Registrarme"}
-        </button>
+      <label className={styles.label} htmlFor="confirm">Confirmar contraseña</label>
+      <input
+        id="confirm"
+        name="confirm"
+        type="password"
+        placeholder="Repetí tu contraseña"
+        value={form.confirm}
+        onChange={handleChange}
+        className={styles.input}
+        required
+      />
 
-        <p className={styles.text}>
-          ¿Ya tenés cuenta? <a href="/login">Inicia sesión aquí</a>
-        </p>
-      </form>
-    </div>
+      <label className={styles.checkRow}>
+        <input
+          type="checkbox"
+          name="accept"
+          checked={form.accept}
+          onChange={handleChange}
+        />
+        <span>
+          Acepto los <a href="#">términos y condiciones</a>
+        </span>
+      </label>
+
+      <button className={styles.button} disabled={loading}>
+        {loading ? "Creando cuenta..." : "Crear cuenta"}
+      </button>
+
+      <p className={styles.text}>
+        ¿Ya tenés cuenta? <a href="/login">Iniciar sesión</a>
+      </p>
+    </form>
   );
 }

@@ -1,12 +1,13 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import styles from "./Login.module.css";
+import Image from "next/image";
+import styles from "../../../styles/FormLayout.module.css";
 import { AuthAPI } from "src/lib";
 
 export default function LoginForm() {
-    
   const router = useRouter();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -20,7 +21,6 @@ export default function LoginForm() {
     try {
       const res = await AuthAPI.login({ email, password });
       const data = res.data?.data;
-      console.log(data)
 
       if (!data || !data.token) {
         throw new Error("No se recibió el token del servidor");
@@ -28,7 +28,6 @@ export default function LoginForm() {
 
       const { token, email: userEmail, role } = data;
 
-      // Guarda los datos localmente
       localStorage.setItem("token", token);
       localStorage.setItem("email", userEmail);
       localStorage.setItem("role", role);
@@ -47,6 +46,21 @@ export default function LoginForm() {
 
   return (
     <div className={styles.container}>
+      {/* ✋ Manos decorativas */}
+      <Image
+        src="/hand-left.png"
+        alt="Mano izquierda solidaria"
+        width={260}
+        height={260}
+        className={styles.handLeft}
+      />
+      <Image
+        src="/hand-right.png"
+        alt="Mano derecha solidaria"
+        width={260}
+        height={260}
+        className={styles.handRight}
+      />
 
       <h1 className={styles.title}>Iniciar sesión</h1>
 
@@ -75,7 +89,7 @@ export default function LoginForm() {
           <input
             id="password"
             type="password"
-            placeholder="*****"
+            placeholder="********"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className={styles.input}

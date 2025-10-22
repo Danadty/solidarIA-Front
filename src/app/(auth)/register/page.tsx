@@ -1,13 +1,11 @@
 import RegisterForm from "./RegisterForm";
-import styles from "./Register.module.css";
+import styles from "../../../styles/FormLayout.module.css";
 
 export default function RegisterPage() {
   return (
     <main className={styles.container}>
-      <section className={styles.card}>
-
-        <RegisterForm />
-      </section>
+      <h1 className={styles.title}>Crear cuenta</h1>
+      <RegisterForm />
     </main>
   );
 }
