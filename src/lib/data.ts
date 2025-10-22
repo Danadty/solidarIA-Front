@@ -1,52 +1,37 @@
 // lib/data.ts
-import { Ong, Project, User, Donation } from './definitions'; // Importa todos tus tipos
+// import { Ong, Project, User, Donation } from './definitions'; // Importa todos tus tipos
 
-const API_BASE_URL = 'http://35.172.181.207:3000/api';
+const API_BASE_URL = 'http://35.172.181.207:3000';
+
 
 // --- Funciones para Ongs ---
-export async function getOngById(id: string): Promise<Ong> {
-  try {
-    
-    console.log(`Fetching data for ONG ID: ${id}`);
-    const response = await fetch(`${API_BASE_URL}/foundation`, { cache: 'no-store' });
+const fechtData = async (endpoint: string, token: string) => {
 
-    if (!response.ok) {
-      throw new Error(`Error en el fetch de ONGs: ${response}`);
-    }
+  try{
+    const response = await fetch(`${API_BASE_URL}/${endpoint}`, { 
+      method: 'GET',
+      headers:{
+        'Content-Type': 'application/json',
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+      cache: "no-store",
+    });
 
-    const data: Ong[] = await response.json();
-    const ong = data.find(ong => ong.id === id);
+      if(!response.ok){
+        const errorMessage = await response.json().catch(() => ({}));
+        throw new Error (errorMessage);
+      };
 
-    if (!ong) {
-     
-      throw new Error(`ONG con id ${id} no encontrada.`);
-    
-    }
-    
-    return ong;
+      const data = await response.json();
+      console.log(data);
+      return data;
 
-  } catch (error) {
-    console.error("Error fetching data: ", error);
-    throw new Error("No se pudo obtener la información de la ONG.");
+  } catch (error: any){
+    Error(error.message || "Error de conexión");
   }
 }
 
-
-export async function getAllOngs(): Promise<Ong[]> {
-  try {
-    const response = await fetch(`${API_BASE_URL}/foundation`, { cache: 'no-store' });
-    if (!response.ok) {
-      throw new Error(`Error en el fetch: ${response.statusText}`);
-    }
-    const data: Ong[] = await response.json();
-    return data;
-
-  } catch (error) {
-    console.error("Error fetching data: ", error);
-    throw new Error("No se pudo obtener la lista de ONGs.");
-  }
-}
-
+export { fechtData };
 
 // // --- Funciones para USUARIOS (Ejemplo) ---
 

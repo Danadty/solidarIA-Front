@@ -1,27 +1,32 @@
-// app/tu-pagina/page.tsx
+"use client";
+import { useEffect, useState } from "react";
+import { fechtData } from '@/lib/data'; // Importa tus funciones
 
-import { getAllOngs } from '@/lib/data'; // Importa tus funciones
-import { Ong, User } from '@/lib/definitions'; // Importa los tipos
+const myToken = process.env.NEXT_PUBLIC_TOKEN_ACCESS!;
 
-export default async function MiPaginaDePrueba() {
-  
+
+export default function MiPaginaDePrueba() {
+    const [ongs, setOngs] = useState<any[]>([]);
+    const [error, setError] = useState<string>("");
+
+
   // Agrega los console.log aquí
-  try {
-    console.log("--- [SERVIDOR] Iniciando fetch de datos... ---");
+  useEffect(() => {
+    const obtenerOngs = async () => {
+    try {
+      console.log("--- [SERVIDOR] Iniciando fetch de datos... ---");
+      const dataOng = await fechtData("foundation", myToken);
+      
+      console.log("--- [SERVIDOR] Datos de ONGs recibidos: ---");
+      console.log(dataOng);
 
-    // Llama a tus funciones
-    const ongs: Ong[] = await getAllOngs();
-    
-    console.log("--- [SERVIDOR] Datos de ONGs recibidos: ---");
-    console.log(ongs);
+    } catch (error: any) {
+      console.error("--- [SERVIDOR] Hubo un error al hacer fetch ---", error);
+      setError(error.message);
+    }}
+obtenerOngs();
 
-    
-    // console.log(JSON.stringify(ongs, null, 2)); // Alternativa para verlos "bonito"
-
-  } catch (error) {
-    console.error("--- [SERVIDOR] Hubo un error al hacer fetch ---", error);
-  }
-
+  }, []);
   // El componente debe devolver algo de JSX
   return (
     <div>
