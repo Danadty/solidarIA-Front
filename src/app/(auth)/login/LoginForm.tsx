@@ -2,10 +2,12 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import styles from "../../styles/FormLayout.module.css";
+import styles from "../../../styles/FormLayout.module.css";
+import { AuthAPI } from "src/lib";
 
 export default function LoginForm() {
   const router = useRouter();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -17,37 +19,26 @@ export default function LoginForm() {
     setLoading(true);
 
     try {
-      const res = await fetch("http://35.172.181.207:3000/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
+      const res = await AuthAPI.login({ email, password });
+      const data = res.data?.data;
 
-      if (!res.ok) {
-        const errData = await res.json().catch(() => ({}));
-        throw new Error(errData.message || "Credenciales inválidas");
+      if (!data || !data.token) {
+        throw new Error("No se recibió el token del servidor");
       }
 
-      const data = await res.json();
-    
-      console.log({data});
-// La API devuelve data.data.token
-const token = data?.data?.token;
-const mail = data?.data?.email;
-const role = data?.data?.role;
+      const { token, email: userEmail, role } = data;
 
-if (token) {
-  localStorage.setItem("token", token);
-  localStorage.setItem("email", mail);
-  localStorage.setItem("role", role);
+      localStorage.setItem("token", token);
+      localStorage.setItem("email", userEmail);
+      localStorage.setItem("role", role);
 
-  router.push("/profile-user");
-} else {
-  throw new Error("No se recibió el token del servidor");
-}
-
+      router.push("/profile-user");
     } catch (err: any) {
-      setError(err.message || "Error de conexión");
+      const msg =
+        err.response?.data?.message ||
+        err.message ||
+        "Error de conexión o credenciales inválidas";
+      setError(msg);
     } finally {
       setLoading(false);
     }

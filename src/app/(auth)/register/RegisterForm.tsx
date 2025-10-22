@@ -1,9 +1,9 @@
-// src/app/register/RegisterForm.tsx
 "use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import styles from "../../styles/FormLayout.module.css";
+import styles from "../../../styles/FormLayout.module.css";
+import { UserAPI } from "src/lib";
 
 type FormState = {
   name: string;
@@ -25,9 +25,7 @@ export default function RegisterForm() {
     accept: false,
   });
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
     setForm((f) => ({ ...f, [name]: type === "checkbox" ? checked : value }));
   };
@@ -35,9 +33,12 @@ export default function RegisterForm() {
   const validate = () => {
     if (!form.name.trim()) return "El nombre es obligatorio.";
     if (!/\S+@\S+\.\S+/.test(form.email)) return "Email inválido.";
-    if (form.password.length < 6) return "La contraseña debe tener al menos 6 caracteres.";
-    if (form.password !== form.confirm) return "Las contraseñas no coinciden.";
-    if (!form.accept) return "Debes aceptar los términos y condiciones.";
+    if (form.password.length < 6)
+      return "La contraseña debe tener al menos 6 caracteres.";
+    if (form.password !== form.confirm)
+      return "Las contraseñas no coinciden.";
+    if (!form.accept)
+      return "Debes aceptar los términos y condiciones.";
     return null;
   };
 
@@ -48,31 +49,32 @@ export default function RegisterForm() {
       setErrors(msg);
       return;
     }
+
     setErrors(null);
     setLoading(true);
 
     try {
-      // 🔗 Opción A: Llamar a tu backend real
-      // const res = await fetch(process.env.NEXT_PUBLIC_API_URL + "/auth/register", {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify({ name: form.name, email: form.email, password: form.password }),
-      // });
-      // if (!res.ok) throw new Error((await res.json()).message || "Error al registrar");
-      // ✅ OK → redirigimos a /login
-      // router.push("/login?registered=1");
+      const res = await UserAPI.create({
+        name: form.name,
+        email: form.email,
+        password: form.password,
+      });
 
-      // 🧪 Opción B: Mock local temporal (para probar UX sin backend)
-      await new Promise((r) => setTimeout(r, 800));
-      // Simulamos que el email ya existe
-      if (form.email.toLowerCase() === "admin@solidaria.org") {
-        throw new Error("Ese email ya está registrado.");
-      }
-      // Éxito simulado
+      const data = res.data?.data;
+      if (!data?.id) throw new Error("No se recibió el usuario del servidor");
+
+      localStorage.setItem("userId", data.id);
+      localStorage.setItem("email", data.email);
+      localStorage.setItem("role", data.role);
+
       alert("Cuenta creada con éxito. Ahora podés iniciar sesión.");
       router.push("/login?registered=1");
     } catch (err: any) {
-      setErrors(err?.message || "No se pudo crear la cuenta.");
+      setErrors(
+        err.response?.data?.message ||
+        err.message ||
+        "Error de conexión o datos inválidos"
+      );
     } finally {
       setLoading(false);
     }

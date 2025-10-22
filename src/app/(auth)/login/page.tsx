@@ -1,5 +1,5 @@
 import LoginForm from "./LoginForm";
-import styles from "../../styles/FormLayout.module.css";
+import styles from "../../../styles/FormLayout.module.css";
 
 export default function LoginPage() {
   return (
