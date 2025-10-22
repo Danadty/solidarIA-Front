@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import styles from "./Login.module.css";
+import styles from "../../styles/FormLayout.module.css";
 
 export default function LoginForm() {
   const router = useRouter();

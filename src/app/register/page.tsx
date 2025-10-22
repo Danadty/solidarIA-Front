@@ -1,6 +1,6 @@
 // src/app/register/page.tsx
 import RegisterForm from "./RegisterForm";
-import styles from "./Register.module.css";
+import styles from "../../styles/FormLayout.module.css";
 
 export default function RegisterPage() {
   return (

@@ -3,7 +3,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import styles from "./Register.module.css";
+import styles from "../../styles/FormLayout.module.css";
 
 type FormState = {
   name: string;

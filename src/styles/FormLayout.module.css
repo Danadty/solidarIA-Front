@@ -18,6 +18,24 @@
   opacity: 0.95;
 }
 
+.handLeft {
+  position: absolute;
+  bottom: 5%;
+  left: 8%;
+  transform: rotate(10deg);
+  opacity: 0.9;
+  z-index: 0;
+}
+
+.handRight {
+  position: absolute;
+  bottom: 5%;
+  right: 8%;
+  transform: rotate(-10deg);
+  opacity: 0.9;
+  z-index: 0;
+}
+
 /* Título */
 .title {
   font-size: 2rem;
@@ -77,6 +95,7 @@
   border: none;
   padding: 0.9rem;
   border-radius: 8px;
+  font-size: 1rem;
   font-size: 1rem;
   cursor: pointer;
   font-weight: 600;
