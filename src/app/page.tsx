@@ -17,7 +17,7 @@ export default function MiPaginaDePrueba() {
       console.log("--- [SERVIDOR] Iniciando fetch de datos... ---");
       const dataOng = await fechtData("foundation", myToken);
       
-      console.log("--- [SERVIDOR] Datos de ONGs recibidos: ---");
+      console.log("--- [SERVIDOR] Datos recibidos: ---");
       console.log(dataOng);
 
     } catch (error: any) {
@@ -27,11 +27,14 @@ export default function MiPaginaDePrueba() {
 obtenerOngs();
 
   }, []);
-  // El componente debe devolver algo de JSX
+  
+  
+
+
   return (
     <div>
-      <h1>Revisa tu terminal</h1>
-      <p>Los datos de la API deberían haber aparecido en la terminal donde ejecutaste 'npm run dev'.</p>
+      <h1>Metodos para la API</h1>
+      <p>{}</p>
     </div>
   );
 }
