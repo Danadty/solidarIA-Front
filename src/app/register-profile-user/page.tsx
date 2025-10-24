@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { UserProfileAPI } from "src/lib";
-import UploadPhoto from "./componente/UploadPhoto";
 import UpdatePhoto from "./componente/UpdatePhoto";
 import styles from "../../styles/FormLayout.module.css";
 
@@ -87,9 +86,10 @@ export default function CreateProfilePage() {
           name="description"
           value={form.description}
           onChange={handleChange}
-          placeholder="Descripción del usuario"
+          placeholder="Cuéntanos sobre ti y tus intereses..."
           className={styles.input}
           maxLength={500}
+          rows={4}
           required
         />
 
@@ -116,7 +116,7 @@ export default function CreateProfilePage() {
           type="text"
           value={form.address}
           onChange={handleChange}
-          placeholder="Calle 123"
+          placeholder="Calle 123, Ciudad, País"
           className={styles.input}
           required
         />
@@ -126,13 +126,7 @@ export default function CreateProfilePage() {
         </button>
 
         {profileId && (
-          <div style={{ marginTop: "1rem" }}>
-            <h2 className={styles.title} style={{ fontSize: "1.2rem" }}>
-              Gestión de Foto
-            </h2>
-            <UploadPhoto profileId={profileId} />
-            <UpdatePhoto profileId={profileId} />
-          </div>
+          <UpdatePhoto profileId={profileId} />
         )}
       </form>
     </div>

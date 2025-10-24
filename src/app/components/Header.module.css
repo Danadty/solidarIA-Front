@@ -23,7 +23,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  transform: translateX(-10px); /* mueve un poco a la izquierda */
+  transform: translateX(-10px);
 }
 
 .logo img {
@@ -35,17 +35,17 @@
 .brand {
   font-size: 1.6rem;
   font-weight: 600;
-  color: var(--color-1); /* gris oscuro */
+  color: var(--color-1);
   display: flex;
   align-items: center;
 }
 
 .brandAccent {
-  color: var(--color-5); /* celeste */
+  color: var(--color-5);
 }
 
 .brandMain {
-  color: var(--color-1); /* gris oscuro / texto base */
+  color: var(--color-1);
 }
 
 /* ---- NAV ---- */

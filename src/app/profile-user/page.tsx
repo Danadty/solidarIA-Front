@@ -14,10 +14,7 @@ export default function ProfilePage() {
         key={mockUserProfile.id}
       />
       
-      
       <h2>Últimas actividades</h2>
-
-
 
       <ActivityCard
         image="/globe.svg"
@@ -26,7 +23,7 @@ export default function ProfilePage() {
       />
 
       <h2>Ultimas donaciones</h2>
-
+      
       <TableLastDonations
         key={null}
       />

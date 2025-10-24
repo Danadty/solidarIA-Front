@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { UserProfileAPI } from 'src/lib';
+import styles from './UpdatePhoto.module.css';
 
 interface UpdatePhotoProps {
   profileId: string;
@@ -15,14 +16,32 @@ export default function UpdatePhoto({ profileId }: UpdatePhotoProps) {
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.[0]) {
-      setFile(e.target.files[0]);
+      const selectedFile = e.target.files[0];
+      
+      if (!selectedFile.type.startsWith('image/')) {
+        setError('Por favor, selecciona un archivo de imagen válido');
+        setFile(null);
+        return;
+      }
+      
+      if (selectedFile.size > 5 * 1024 * 1024) {
+        setError('La imagen no debe superar los 5MB');
+        setFile(null);
+        return;
+      }
+      
+      setFile(selectedFile);
       setSuccess(false);
       setError(null);
     }
   };
 
   const handleUpdate = async () => {
-    if (!file) return;
+    if (!file) {
+      setError('Por favor, selecciona una imagen');
+      return;
+    }
+    
     setLoading(true);
     setError(null);
     setSuccess(false);
@@ -30,29 +49,56 @@ export default function UpdatePhoto({ profileId }: UpdatePhotoProps) {
     try {
       await UserProfileAPI.updatePhoto(profileId, file);
       setSuccess(true);
+      setFile(null);
+      // Limpiar el input file
+      const fileInput = document.getElementById('photoInput') as HTMLInputElement;
+      if (fileInput) fileInput.value = '';
     } catch (err: any) {
-      setError(err.response?.data?.message || err.message || 'Error desconocido');
+      setError(err.response?.data?.message || err.message || 'Error al actualizar la foto');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="mt-6 border-t border-gray-200 pt-4">
-      <label className="block text-sm font-medium mb-1 text-gray-700">Actualizar Foto de Perfil</label>
-      <div className="flex items-center space-x-3">
-        <input type="file" accept="image/*" onChange={handleFileChange} />
+    <div className={styles.container}>
+      <h3 className={styles.title}>Foto de Perfil</h3>
+      
+      <div className={styles.uploadArea}>
+        <input 
+          id="photoInput"
+          type="file" 
+          accept="image/*" 
+          onChange={handleFileChange}
+          className={styles.fileInput}
+        />
+        
+        {file && (
+          <div className={styles.fileInfo}>
+            Archivo seleccionado: {file.name} ({(file.size / 1024 / 1024).toFixed(2)} MB)
+          </div>
+        )}
+        
         <button
           onClick={handleUpdate}
           disabled={loading || !file}
-          className="bg-blue-600 text-white py-1 px-3 rounded hover:bg-blue-700 transition disabled:opacity-60"
+          className={styles.button}
         >
           {loading ? 'Actualizando...' : 'Actualizar Foto'}
         </button>
       </div>
 
-      {success && <p className="text-green-600 mt-2">Foto actualizada correctamente!</p>}
-      {error && <p className="text-red-600 mt-2">Error: {error}</p>}
+      {success && (
+        <div className={styles.success}>
+          Foto actualizada correctamente
+        </div>
+      )}
+      
+      {error && (
+        <div className={styles.error}>
+          {error}
+        </div>
+      )}
     </div>
   );
 }

@@ -32,7 +32,7 @@ export default function LoginForm() {
       localStorage.setItem("email", userEmail);
       localStorage.setItem("role", role);
 
-      router.push("/profile-user");
+      router.push("/home");
     } catch (err: any) {
       const msg =
         err.response?.data?.message ||

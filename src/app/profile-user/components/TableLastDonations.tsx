@@ -58,10 +58,6 @@ const rows: TableData[] = lastsDonations.map(donation =>
 );
 
 
-
-
-
-
 export default function StickyHeadTable() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);

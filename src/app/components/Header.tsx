@@ -20,7 +20,6 @@ export default function Header({ isLoggedIn = false }: HeaderProps) {
               <span className={styles.brand}>Solidar<span className={styles.brandAccent}>IA</span></span>
         </div>
 
-        {/* Botón hamburguesa */}
         <button
           className={styles.menuButton}
           onClick={() => setMenuOpen(!menuOpen)}
@@ -28,16 +27,14 @@ export default function Header({ isLoggedIn = false }: HeaderProps) {
           ☰
         </button>
 
-        {/* Navegación */}
         <nav className={`${styles.nav} ${menuOpen ? styles.open : ""}`}>
           <Link href="/">Inicio</Link>
-          <Link href="/ong">ONG</Link>
-          <Link href="/voluntariado">Voluntariado</Link>
+          <Link href="/ongs">ONGs</Link>
+          <Link href="/volunteers">Voluntariados</Link>
           <Link href="/donar">Donar</Link>
           <Link href="/educacion">Educación</Link>
         </nav>
 
-        {/* Botón login/logout */}
         <div className={styles.sessionBtn}>
           <button
             className={styles.btnLogin}
