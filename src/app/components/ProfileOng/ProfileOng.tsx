@@ -1,6 +1,7 @@
 import './ProfileOng.css'; // Importamos el CSS puro
 
 
+
 interface Project {
   id: string;
   title: string;
