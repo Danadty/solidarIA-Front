@@ -20,7 +20,7 @@
 
 .logo {
   border-radius: 50%;
-  width: 140px;              /* un poco más grande */
+  width: 140px;
   height: 140px;
   object-fit: cover;
   background: white;
@@ -41,56 +41,27 @@
   font-size: 1.1rem;
 }
 
-
-.primaryBtn,
-.secondaryBtn {
-  padding: 0.7rem 1.4rem;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  text-align: center;
-}
-
-.primaryBtn {
-  background-color: #008cff;
-  color: white;
-}
-
-.primaryBtn:hover {
-  background-color: #0072d4;
-}
-
-.secondaryBtn {
-  background-color: #fff;
-  border: 2px solid #008cff;
-  color: #008cff;
-}
-
-.secondaryBtn:hover {
-  background-color: #f0f8ff;
-}
-
 /* Tarjetas de información */
 .infoGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.8rem;
   margin: 0 auto;
-  max-width: 1100px;
+  max-width: 900px;
   width: 100%;
 }
 
 .card {
   background: #fff;
-  padding: 1.5rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-  transition: transform 0.2s ease;
+  padding: 1.8rem;
+  border-radius: 16px;
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
 }
 
 /* Equipo */
@@ -108,7 +79,7 @@
 
 .member {
   background: #fff;
-  padding: 1rem;
+  padding: 1.2rem;
   border-radius: 12px;
   width: 220px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
@@ -132,20 +103,38 @@
   margin-bottom: 0.3rem;
 }
 
-.member a {
-  color: #0077b5;
-  text-decoration: none;
+.socialIcons {
+  display: flex;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-top: 0.5rem;
 }
 
-.member a:hover {
-  text-decoration: underline;
+.linkedinIcon {
+  color: #0077b5;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.linkedinIcon:hover {
+  color: #005582;
+  transform: scale(1.2);
+}
+
+.githubIcon {
+  color: #24292e;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.githubIcon:hover {
+  color: #000;
+  transform: scale(1.2);
 }
 
 /* Contacto */
 .contact {
   text-align: center;
-  padding: 1rem;
-  margin-top: 1rem;
+  padding: 1.5rem;
+  margin-top: 1.5rem;
 }
 
 .socials {
@@ -174,10 +163,6 @@
     font-size: 1.8rem;
   }
 
-  .infoGrid {
-    gap: 1.2rem;
-  }
-
   .member {
     width: 200px;
   }
@@ -201,16 +186,7 @@
 
   .infoGrid {
     grid-template-columns: 1fr;
-  }
-
-  .buttons {
-    flex-direction: column;
-    gap: 0.7rem;
-  }
-
-  .primaryBtn,
-  .secondaryBtn {
-    width: 100%;
+    width: 90%;
   }
 
   .member {
@@ -229,37 +205,11 @@
   }
 
   .card {
-    padding: 1rem;
+    padding: 1.2rem;
   }
 
   .avatar {
     width: 80px;
     height: 80px;
   }
-}
-.socialIcons {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-top: 0.5rem;
-}
-
-.linkedinIcon {
-  color: #0077b5;
-  transition: transform 0.2s ease, color 0.2s ease;
-}
-
-.linkedinIcon:hover {
-  color: #005582;
-  transform: scale(1.2);
-}
-
-.githubIcon {
-  color: #24292e;
-  transition: transform 0.2s ease, color 0.2s ease;
-}
-
-.githubIcon:hover {
-  color: #000;
-  transform: scale(1.2);
 }
