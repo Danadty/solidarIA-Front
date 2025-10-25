@@ -1,9 +1,15 @@
 :root{
-  --color-1: oklch(0.3818 0.049 160.41);   /* primaryDark (texto, botón) */
-  --color-2: oklch(0.6482 0.0554 170.9);  /* primary (links) */
-  --color-3: oklch(0.8169 0.0327 143.82); /* secondary (hover, accent) */
-  --color-4: oklch(0.9168 0.0239 88.24);  /* light (bg formulario / hero) */
-  --color-5: oklch(0.44 0.0326 204.69);   /* accent (CTA hover / icon) */
+    --color-primario: #f6f1e2;
+    --color-secundario: #497568;
+    --color-verde-oscuro: #334c47;
+    --color-fondo: #699689;
+    --color-texto: #98b9a1;
+    --light-gray: #f8f9fa;
+    --border-color: #dee2e6;
+    --text-color: #333;
+    --text-light: #555;
+    --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    --card-radius: 12px;
 }
 
 /* reset básico / tipografía (ajusta a tu preferencia) */

@@ -1,0 +1,19 @@
+.container-icons{
+    display: flex;
+    justify-content: space-evenly;
+    gap: 20px;
+    margin-top: 15px;
+}
+
+.container-icons div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    gap: 1rem;
+}
+
+.container-icons div svg{
+    font-size: 2rem;
+}
