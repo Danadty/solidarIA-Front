@@ -41,12 +41,6 @@
   font-size: 1.1rem;
 }
 
-.buttons {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  flex-wrap: wrap;
-}
 
 .primaryBtn,
 .secondaryBtn {
@@ -242,4 +236,30 @@
     width: 80px;
     height: 80px;
   }
+}
+.socialIcons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.linkedinIcon {
+  color: #0077b5;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.linkedinIcon:hover {
+  color: #005582;
+  transform: scale(1.2);
+}
+
+.githubIcon {
+  color: #24292e;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.githubIcon:hover {
+  color: #000;
+  transform: scale(1.2);
 }
