@@ -1,5 +1,5 @@
 import './ProfileOng.css'; // Importamos el CSS puro
-
+import PasarelaPagos from '../PasarelaPagos/PasarelaPagos';
 
 interface Project {
   id: string;
