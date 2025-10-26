@@ -33,12 +33,15 @@ export default function HomePage() {
       try {
         setError(null);
         const [foundationsRes, campaignsRes] = await Promise.all([
-          FoundationAPI.getAll(),
+          FoundationAPI.getPublic(),
           CampaignAPI.getAll(),
         ]);
-
-        const foundations = Array.isArray(foundationsRes.data) ? foundationsRes.data : (foundationsRes.data?.data || []);
-        const campaigns = Array.isArray(campaignsRes.data) ? campaignsRes.data : (campaignsRes.data?.data || []);
+        const foundations = Array.isArray(foundationsRes.data)
+          ? foundationsRes.data
+          : (foundationsRes.data?.data || []);
+        const campaignsAll = Array.isArray(campaignsRes.data)
+          ? campaignsRes.data
+          : (campaignsRes.data?.data || []);
 
         const mappedOngs = foundations.slice(0, 6).map((f: any, idx: number) => ({
           id: f.id ?? f._id ?? idx,
@@ -46,12 +49,7 @@ export default function HomePage() {
           descripcion: f.description ?? f.descripcion ?? '',
           imagen: f.logoUrl ?? f.logo ?? f.imageUrl ?? '/vercel.svg',
         }));
-
-        const toTime = (c: any) => new Date(
-          c.updatedAt || c.createdAt || c.startDate || c.fecha || c.date || 0
-        ).getTime();
-        const sortedCampaigns = campaigns.slice().sort((a: any, b: any) => toTime(b) - toTime(a));
-        const mappedVols = sortedCampaigns.slice(0, 10).map((c: any, idx: number) => ({
+        const mappedVols = campaignsAll.slice(0, 5).map((c: any, idx: number) => ({
           id: c.id ?? c._id ?? idx,
           titulo: c.title ?? c.titulo ?? c.name ?? 'Campaña',
           descripcion: c.description ?? c.descripcion ?? '',
@@ -98,12 +96,8 @@ export default function HomePage() {
     try {
       setLoading(true);
       setError(null);
-      const [foundationsRes, campaignsRes] = await Promise.all([
-        FoundationAPI.getAll(),
-        CampaignAPI.getAll(),
-      ]);
+      const foundationsRes = await FoundationAPI.getPublic();
       const foundations = Array.isArray(foundationsRes.data) ? foundationsRes.data : (foundationsRes.data?.data || []);
-      const campaigns = Array.isArray(campaignsRes.data) ? campaignsRes.data : (campaignsRes.data?.data || []);
 
       const q = query.trim().toLowerCase();
       const filteredOngs = foundations
@@ -120,26 +114,33 @@ export default function HomePage() {
           imagen: f.logoUrl ?? f.logo ?? f.imageUrl ?? '/vercel.svg',
         }));
 
-      const toTime = (c: any) => new Date(
-        c.updatedAt || c.createdAt || c.startDate || c.fecha || c.date || 0
-      ).getTime();
-      const filteredVols = campaigns
-        .filter((c: any) => {
-          const t = (c.title || c.titulo || c.name || '').toString().toLowerCase();
-          const d = (c.description || c.descripcion || '').toString().toLowerCase();
-          return t.includes(q) || d.includes(q);
-        })
-        .sort((a: any, b: any) => toTime(b) - toTime(a))
-        .slice(0, 10)
-        .map((c: any, idx: number) => ({
-          id: c.id ?? c._id ?? idx,
-          titulo: c.title ?? c.titulo ?? c.name ?? 'Campaña',
-          descripcion: c.description ?? c.descripcion ?? '',
-          imagen: c.coverUrl ?? c.portada ?? c.imageUrl ?? 'https://images.unsplash.com/photo-1523978591478-c753949ff840?q=80&w=1600&auto=format&fit=crop',
-        }));
+      // Para el carrusel tras búsqueda
+      let mappedVols: any[] = [];
+      const firstMatch = (foundations || [])[0];
+      if (firstMatch) {
+        const fid = firstMatch.id ?? firstMatch._id ?? null;
+        if (fid) {
+          const foundationDetailRes = await FoundationAPI.getById(String(fid));
+          const foundationDetail = foundationDetailRes?.data?.data ?? foundationDetailRes?.data ?? {};
+          const campaigns = Array.isArray(foundationDetail?.campaigns)
+            ? foundationDetail.campaigns
+            : (foundationDetail?.data?.campaigns || []);
+
+          const toTime = (c: any) => new Date(
+            c.updatedAt || c.createdAt || c.startDate || c.fecha || c.date || 0
+          ).getTime();
+          const sortedCampaigns = (campaigns || []).slice().sort((a: any, b: any) => toTime(b) - toTime(a));
+          mappedVols = sortedCampaigns.slice(0, 10).map((c: any, idx: number) => ({
+            id: c.id ?? c._id ?? idx,
+            titulo: c.title ?? c.titulo ?? c.name ?? 'Campaña',
+            descripcion: c.description ?? c.descripcion ?? '',
+            imagen: c.coverUrl ?? c.portada ?? c.imageUrl ?? 'https://images.unsplash.com/photo-1523978591478-c753949ff840?q=80&w=1600&auto=format&fit=crop',
+          }));
+        }
+      }
 
       setOngs(filteredOngs);
-      setVoluntariados(filteredVols);
+      setVoluntariados(mappedVols);
     } catch (err) {
       console.error('Error buscando con IA/backend:', err);
       setError('Error al buscar. Intenta nuevamente.');
