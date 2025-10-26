@@ -12,6 +12,8 @@
     --card-radius: 12px;
 }
 
+
+
 /* reset básico / tipografía (ajusta a tu preferencia) */
 html,body,#root {
   height: 100%;
@@ -19,18 +21,18 @@ html,body,#root {
 body {
   margin: 0;
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  background: var(--color-4);
-  color: var(--color-1);
+  background: var(--color-primario);
+  color: var(--text-color);
 }
 
 /* utility pequeño si no usás Tailwind en alguna parte */
 .btn-cta {
-  background: var(--color-1);
-  color: var(--color-4);
+  background: var(--text-color);
+  color: var(--color-primario);
   padding: 0.6rem 1rem;
   border-radius: 8px;
   font-weight: 600;
 }
 .btn-cta:hover {
-  background: var(--color-5);
+  background: var(--color-secundario);
 }

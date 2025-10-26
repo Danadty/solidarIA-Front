@@ -1,6 +1,6 @@
 .header {
   width: 100%;
-  background: var(--color-4);
+  background: var(--color-primario);
   border-bottom: 1px solid oklch(0.9 0 0);
   position: sticky;
   top: 0;
@@ -35,17 +35,17 @@
 .brand {
   font-size: 1.6rem;
   font-weight: 600;
-  color: var(--color-1);
+  color: var(--text-color);
   display: flex;
   align-items: center;
 }
 
 .brandAccent {
-  color: var(--color-5);
+  color: var(--color-secundario);
 }
 
 .brandMain {
-  color: var(--color-1);
+  color: var(--text-color);
 }
 
 /* ---- NAV ---- */
@@ -57,13 +57,13 @@
 
 .nav a {
   text-decoration: none;
-  color: var(--color-1);
+  color: var(--text-color);
   font-weight: 500;
   transition: color 0.2s ease;
 }
 
 .nav a:hover {
-  color: var(--color-2);
+  color: var(--color-texto);
 }
 
 /* ---- BOTÓN DE SESIÓN ---- */
@@ -78,13 +78,13 @@
   border-radius: 8px;
   font-weight: 500;
   cursor: pointer;
-  color: var(--color-1);
+  color: var(--text-color);
   transition: background 0.2s ease;
 }
 
 .btnLogin:hover {
-  background: var(--color-5);
-  color: var(--color-4);
+  background: var(--color-secundario);
+  color: var(--color-primario);
 }
 
 /* ---- MENÚ HAMBURGUESA ---- */
@@ -105,7 +105,7 @@
   .nav {
     display: none;
     flex-direction: column;
-    background: var(--color-4);
+    background: var(--color-primario);
     position: absolute;
     top: 100%;
     left: 0;
