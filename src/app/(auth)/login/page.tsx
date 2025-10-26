@@ -1,6 +1,6 @@
 import LoginForm from "./LoginForm";
 import styles from "../../../styles/FormLayout.module.css";
-import Chatbot from "src/app/components/chatbot";
+import Chatbot from "../../../app/components/chatbot";
 
 export default function LoginPage() {
   return (

@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { UserProfileAPI } from "src/lib";
+import { UserProfileAPI } from "../../lib/api/userProfile.api";
 import HeroSection from "./components/HeroSection";
 import FiltersSection from "./components/FiltersSection";
 import VolunteersGrid from "./components/VolunteersGrid";

@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { FoundationAPI } from "src/lib";
+import { FoundationAPI } from "../../lib/api/foundation.api";
 import HeroSection from "./components/HeroSection";
 import FiltersSection from "./components/FiltersSection";
 import FoundationsGrid from "./components/FoundationsGrid";

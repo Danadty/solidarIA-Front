@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import styles from "../../../styles/FormLayout.module.css";
-import { AuthAPI } from "src/lib";
+import { AuthAPI } from "../../../lib/api/auth.api";
 
 export default function LoginForm() {
   const router = useRouter();

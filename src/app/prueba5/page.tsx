@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { CampaignAPI } from 'src/lib/api/campaign.api';
+import { CampaignAPI } from '../../lib/api/campaign.api';
 
 export default function Page() {
   useEffect(() => {
