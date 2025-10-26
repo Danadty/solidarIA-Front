@@ -5,7 +5,7 @@ export default function HeroSection() {
     <section className={styles.hero}>
       <div className={styles.heroContent}>
         <h1 className={styles.heroTitle}>
-          Descubrí Fundaciones que Transforman Vidas
+          Descubrí Fundaciones que <span>Transforman Vidas</span>
         </h1>
         <p className={styles.heroSubtitle}>
           Conectá con organizaciones que trabajan incansablemente por causas sociales. 

@@ -3,9 +3,10 @@ import { useEffect, useState } from "react";
 import { FoundationAPI } from "../../lib/api/foundation.api";
 import HeroSection from "./components/HeroSection";
 import FiltersSection from "./components/FiltersSection";
-import FoundationsGrid from "./components/FoundationsGrid";
+// import FoundationsGrid from "./components/FoundationsGrid";
 import CTASection from "./components/CTASection";
 import styles from "./ongs.module.css";
+import RenderOngs from "./components/renderOngs";
 
 interface Foundation {
   id: string;
@@ -26,32 +27,26 @@ export default function OngsPage() {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const [totalOngs, setTotalOngs] = useState(0);
 
-  useEffect(() => {
-    loadFoundations();
-  }, []);
+  // useEffect(() => {
+  //   loadFoundations();
+  // }, []);
 
   useEffect(() => {
     filterFoundations();
   }, [foundations, searchTerm, selectedCategory]);
 
-  const loadFoundations = async () => {
-    try {
-      const response = await FoundationAPI.getAll();
-      console.log("Respuesta API:", response);
-      
-      const foundationsData = response.data?.data || [];
-      console.log("Fundaciones cargadas:", foundationsData);
-      
-      setFoundations(foundationsData);
-      
-    } catch (error) {
-      console.error("Error loading foundations:", error);
-      setFoundations([]);
-    } finally {
-      setLoading(false);
-    }
-  };
+  /*Recuperamos total Ong desde el storage*/
+  useEffect(() => {
+    const saved = Number(localStorage.getItem("totalOngs")) || 0;
+    setTotalOngs(saved);
+  }, []);
+  
+  /*Sincronizar localStorage cuando cambie totalOngs*/
+  useEffect(() => {
+    localStorage.setItem("totalOngs", totalOngs.toString());
+  }, [totalOngs]);
 
   const filterFoundations = () => {
     let filtered = foundations;
@@ -72,6 +67,8 @@ export default function OngsPage() {
     setFilteredFoundations(filtered);
   };
 
+  
+
   return (
     <>
       <main className={styles.container}>
@@ -83,11 +80,11 @@ export default function OngsPage() {
           selectedCategory={selectedCategory}
           onCategoryChange={setSelectedCategory}
           resultsCount={filteredFoundations.length}
-          totalCount={foundations.length}
+          totalCount={totalOngs}
         />
 
-        <FoundationsGrid foundations={filteredFoundations} />
-
+        <RenderOngs setFoundations={setFoundations} onTotalChange={setTotalOngs} />
+        
         <CTASection />
       </main>
     </>

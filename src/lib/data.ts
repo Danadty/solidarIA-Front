@@ -13,15 +13,14 @@ const fechtData = async (endpoint: string, token: string) => {
 
       if(!response.ok){
         const errorMessage = await response.json().catch(() => ({}));
-        throw new Error (errorMessage);
+        throw new Error (errorMessage || "Error a obtener datos");
       };
 
       const data = await response.json();
-      console.log(data);
       return data;
 
   } catch (error: any){
-    Error(error.message || "Error de conexión");
+    throw new Error(error.message || "Error de conexión");
   }
 }
 

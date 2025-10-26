@@ -85,7 +85,7 @@
   
   /* Hero Section */
   .hero {
-    background: linear-gradient(135deg, var(--color-3) 0%, var(--color-4) 100%);
+    background-color: #ffffff;
     padding: 4rem 2rem;
     text-align: center;
   }
@@ -103,6 +103,10 @@
     line-height: 1.2;
   }
   
+   .heroTitle span {
+    color: #497568;
+  }
+
   .heroSubtitle {
     font-size: 1.25rem;
     color: var(--color-1);
@@ -351,6 +355,47 @@
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
   }
   
+/*CONTAINER CARDS*/
+
+.ongsCotainer {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #f8f9fa;
+}
+
+.cardOng{
+  width: 300px;
+  padding: 1.5rem;
+  background-color: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+}
+
+.ongDescrition{
+  color: var(--color-text);
+}
+
+.cardOngButton{
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  background-color: #497568;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cardOngButton:hover{
+  background-color: #699689;
+}
+
+
   /* Responsive */
   @media (max-width: 768px) {
     .heroTitle {

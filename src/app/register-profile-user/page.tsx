@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { UserProfileAPI } from "src/lib";
+import { UserProfileAPI } from '@/lib/api/userProfile.api';
+
 import UpdatePhoto from "./componente/UpdatePhoto";
 import styles from "../../styles/FormLayout.module.css";
 
