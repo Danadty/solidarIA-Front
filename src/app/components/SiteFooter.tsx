@@ -15,7 +15,6 @@ export default function SiteFooter() {
           <Box sx={{ display: 'flex', gap: 3, justifyContent: { xs: 'flex-start', md: 'flex-end' }, flexWrap: 'wrap', mt: { xs: 2, md: 0 }, flexBasis: { xs: '100%', md: '65%' } }}>
             <Link href="/" style={{ textDecoration: 'none' }}><Typography sx={{ cursor: 'pointer', fontWeight: 600, textDecoration: 'none', color: 'var(--color-verde-oscuro)' }}>Inicio</Typography></Link>
             <Link href="/ongs" style={{ textDecoration: 'none' }}><Typography sx={{ cursor: 'pointer', fontWeight: 600, textDecoration: 'none', color: 'var(--color-verde-oscuro)' }}>ONG</Typography></Link>
-            <Link href="/volunteers" style={{ textDecoration: 'none' }}><Typography sx={{ cursor: 'pointer', fontWeight: 600, textDecoration: 'none', color: 'var(--color-verde-oscuro)' }}>Donar</Typography></Link>
             <Link href="/volunteers" style={{ textDecoration: 'none' }}><Typography sx={{ cursor: 'pointer', fontWeight: 600, textDecoration: 'none', color: 'var(--color-verde-oscuro)' }}>Voluntariado</Typography></Link>
             <Link href="/contact" style={{ textDecoration: 'none' }}><Typography sx={{ cursor: 'pointer', fontWeight: 600, textDecoration: 'none', color: 'var(--color-verde-oscuro)' }}>Contacto</Typography></Link>
           </Box>

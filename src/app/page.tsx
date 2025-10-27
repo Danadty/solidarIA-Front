@@ -201,7 +201,6 @@ export default function HomePage() {
         {voluntariados.length > 0 && <VoluntariadosCarousel voluntariados={voluntariados} />}
       </Box>
 
-      <SiteFooter />
     </Box>
   );
 }
