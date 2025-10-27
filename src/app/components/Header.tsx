@@ -31,7 +31,6 @@ export default function Header({ isLoggedIn = false }: HeaderProps) {
           <Link href="/">Inicio</Link>
           <Link href="/ongs">ONGs</Link>
           <Link href="/volunteers">Voluntariados</Link>
-          <Link href="/donar">Donar</Link>
           <Link href="/contact">Contacto</Link>
         </nav>
 
