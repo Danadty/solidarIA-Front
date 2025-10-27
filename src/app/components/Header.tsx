@@ -125,7 +125,6 @@ export default function Header() {
           <Link href="/">Inicio</Link>
           <Link href="/ongs">ONGs</Link>
           <Link href="/volunteers">Voluntariados</Link>
-          <Link href="/donar">Donar</Link>
           <Link href="/contact">Contacto</Link>
           {/* {isLoggedIn && <Link href="/edit-profile">Editar perfil</Link>} Solo si está logueado */}
 
