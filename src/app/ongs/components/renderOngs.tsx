@@ -19,7 +19,7 @@ const RenderOngs = ({ setFoundations, onTotalChange }: RenderOngsProps) => {
     useEffect(() => {
     const obtenerOngs = async () => {
         try {
-            const dataOng = await fechtData("foundation", myToken);
+            const dataOng = await fechtData("foundation/public");
             const list = dataOng.data || [];
             setOngs(list);
             if (setFoundations) setFoundations(list);
@@ -54,6 +54,11 @@ const RenderOngs = ({ setFoundations, onTotalChange }: RenderOngsProps) => {
             ) : (
                 ongs.map((ong:  any) => (
                     <div key={ong.id} className={styles.cardOng}>
+                        <img
+                            src={ong.logo_url || "/default-logo.png"}
+                            alt={ong.name}
+                            className={styles.cardOngImage}
+                        />
                         <h2 className="card-ong-name">{ong.name}</h2>
                         <p className={styles.ongDescrition}>{ong.description.length > 99
                         ? `${ong.description.substring(0, 100)}...`

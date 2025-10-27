@@ -14,7 +14,7 @@ export default async function OngPage({ params }: OngParams) {
 
 try {
     // 🔹 Fetch de la ONG específica
-    const ongData = await fechtData(`foundation/${id}`, myToken);
+    const ongData = await fechtData(`foundation/${id}`);
     console.log("ONG Data fetched:", ongData);
     // 🔹 Mapeo a props esperadas por OngProfile
     const profileProps = {            

@@ -1,12 +1,12 @@
 // --- Llamado a la api---
-const fechtData = async (endpoint: string, token: string) => {
-
+// const fechtData = async (endpoint: string, token: string) => {
+const fechtData = async (endpoint: string) => {
   try{
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/${endpoint}`, { 
       method: 'GET',
       headers:{
         'Content-Type': 'application/json',
-        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        // ...(token ? { Authorization: `Bearer ${token}` } : {}),
       },
       cache: "no-store",
     });

@@ -29,7 +29,7 @@ const CampaignComponent = ({ ongId }: CampaignComponentProps) => {
         const fetchCampaigns = async () => {
             setLoading(true);
             try {
-                const response = await fechtData(`campaign`, myToken);
+                const response = await fechtData(`campaign`);
                 const list = Array.isArray(response?.data) ? response.data : [];
                 console.log("Campañas fetched (sin filtrar):", list);
                 // Filtrar localmente solo las campañas que pertenezcan a la ONG actual
