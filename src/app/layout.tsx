@@ -3,6 +3,7 @@ import "./globals.css";
 import Header from "./components/Header";
 import { usePathname } from "next/navigation";
 import { AuthProvider } from '../lib';
+import Chatbot from "./components/chatbot";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -14,6 +15,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <AuthProvider>
           <Header isLoggedIn={isProfilePage} />
           {children}
+          <Chatbot />
         </AuthProvider>
         
       </body>

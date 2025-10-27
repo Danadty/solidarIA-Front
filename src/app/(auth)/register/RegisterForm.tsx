@@ -3,14 +3,15 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import styles from "../../../styles/FormLayout.module.css";
-import { UserAPI } from "src/lib";
-
+import { UserAPI } from "../../../lib/api/user.api";
+import "./registerStyle.css";
 type FormState = {
   name: string;
   email: string;
   password: string;
   confirm: string;
   accept: boolean;
+  role: "USER" | "FOUNDATION";
 };
 
 export default function RegisterForm() {
@@ -23,11 +24,25 @@ export default function RegisterForm() {
     password: "",
     confirm: "",
     accept: false,
+    role: "USER",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, type, checked } = e.target;
-    setForm((f) => ({ ...f, [name]: type === "checkbox" ? checked : value }));
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const target = e.target;
+    const name = target.name;
+    const type = target.type;
+
+    let value: string | boolean;
+    if (type === "checkbox") {
+      value = (target as HTMLInputElement).checked;
+    } else {
+      value = target.value;
+    }
+
+    setForm((f) => ({
+      ...f,
+      [name]: name === "role" ? (value as "USER" | "FOUNDATION") : value,
+    }));
   };
 
   const validate = () => {
@@ -58,6 +73,7 @@ export default function RegisterForm() {
         name: form.name,
         email: form.email,
         password: form.password,
+        role: form.role,
       });
 
       const data = res.data?.data;
@@ -82,6 +98,9 @@ export default function RegisterForm() {
 
   return (
     <form className={styles.form} onSubmit={handleSubmit} noValidate>
+      <section className="caja">
+        <h1>FORMULARIO</h1>
+      </section>
       {!!errors && <div className={styles.error}>{errors}</div>}
 
       <label className={styles.label} htmlFor="name">Nombre y apellido</label>
@@ -132,6 +151,19 @@ export default function RegisterForm() {
         required
       />
 
+      {/* Dropdown para seleccionar rol */}
+      <label className={styles.label} htmlFor="role">Seleccioná tu rol</label>
+      <select
+        id="role"
+        name="role"
+        value={form.role}
+        onChange={handleChange}
+        className="select-role"
+        required
+      >
+        <option value="USER">Usuario</option>
+        <option value="FOUNDATION">Fundación</option>
+      </select>
       <label className={styles.checkRow}>
         <input
           type="checkbox"

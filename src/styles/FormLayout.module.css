@@ -90,7 +90,7 @@
 /* Botón principal */
 .button {
   margin-top: 0.5rem;
-  background-color: var(--color-5);
+  background-color: var(--color-verde-oscuro);
   color: #fff;
   border: none;
   padding: 0.9rem;
@@ -103,7 +103,7 @@
 }
 
 .button:hover {
-  background-color: var(--color-2);
+  background-color: var(--color-fondo);
   transform: scale(1.02);
 }
 
