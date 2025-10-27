@@ -25,7 +25,6 @@ const fechtData = async (endpoint: string) => {
 
 /*Fetch con token */
 
-
 const fechtDataWithToken = async (endpoint: string, token: string) => {
   try{
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/${endpoint}`, { 

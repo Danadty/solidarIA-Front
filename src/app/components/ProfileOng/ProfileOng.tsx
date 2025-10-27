@@ -201,6 +201,7 @@ const OngProfile: React.FC<OngProfileProps> = ({
                 </li>
               ))*/}
             </ol>
+            
           </div>
 
           {/* Sección: Impacto Social */}
