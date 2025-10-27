@@ -19,6 +19,7 @@
   position: relative;
   background-color: #fff;
   border-bottom: 1px solid var(--border-color);
+  
 }
 
 .profile-cover-image-wrapper {
@@ -42,6 +43,7 @@
   max-width: 1200px;
   margin: 0 auto;
   transform: translateY(-50px); /* Sube el contenido sobre la portada */
+  margin-top: 5rem;
 }
 
 .profile-picture-wrapper {

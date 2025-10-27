@@ -1,13 +1,6 @@
-import './ProfileOng.css'; // Importamos el CSS puro
-import PasarelaPagos from '../PasarelaPagos/PasarelaPagos';
-
-
-interface Project {
-  id: string;
-  title: string;
-  imageUrl: string;
-  summary: string;
-}
+import "./ProfileOng.css"; // Importamos el CSS puro
+import PasarelaPagos from "../PasarelaPagos/PasarelaPagos";
+import CampaignComponent from "./Campaign/Campaign";
 
 interface Donation {
   id: string;
@@ -21,7 +14,6 @@ interface Alliance {
   name: string;
   logoUrl: string;
 }
-
 // Props principales del componente
 export interface OngProfileProps {
   // name: string;
@@ -49,7 +41,7 @@ export interface OngProfileProps {
   //   linkedin?: string;
   // };
   contact_email: string;
-  contact_phone: number;
+  contact_phone: string;
   profileImage: string;
   description: string;
   id: string;
@@ -72,35 +64,24 @@ const OngProfile: React.FC<OngProfileProps> = ({
   logo_url,
   name,
   updatedAt,
-  userId
+  userId,
 }) => {
-  
   // Helper para formatear números (ej: 1200 -> 1.2k)
-const formatStat = (num: number): string => {
+  const formatStat = (num: number): string => {
     if (num >= 1000) {
-      return (num / 1000).toFixed(1) + 'k';
+      return (num / 1000).toFixed(1) + "k";
     }
     return num.toString();
-};
+  };
 
-return (
+  return (
     <div className="profile-container" key={id}>
-      
       {/* --- 1. Encabezado (Portada y Perfil) --- */}
       <header className="profile-header">
-        <div className="profile-cover-image-wrapper">
-          <img
-            src={logo_url}
-            alt={`Portada de ${name}`}
-            
-            className="profile-cover-img"
-          />
-        </div>
-        
         <div className="profile-header-content">
           <div className="profile-picture-wrapper">
             <img
-              src={profileImage}
+              src={logo_url}
               alt={`Perfil de ${name}`}
               width={150}
               height={150}
@@ -109,18 +90,20 @@ return (
           </div>
           <h1 className="profile-name">{name}</h1>
           <div className="profile-cta-buttons">
-            <button type="button" className="profile-button-primary">Donar ahora</button>
-            <button type="button" className="profile-button-secondary">Ser voluntario</button>
+            <button type="button" className="profile-button-primary">
+              Donar ahora
+            </button>
+            <button type="button" className="profile-button-secondary">
+              Ser voluntario
+            </button>
           </div>
         </div>
       </header>
 
       {/* --- 2. Cuerpo Principal (Layout de 2 columnas) --- */}
       <main className="profile-main">
-        
         {/* --- Columna Izquierda (Sidebar) --- */}
         <aside className="profile-sidebar">
-          
           {/* Widget: Descripción */}
           <div className="profile-widget">
             <h2 className="widget-title">Quiénes Somos</h2>
@@ -159,10 +142,21 @@ return (
           <div className="profile-widget">
             <h2 className="widget-title">Contacto</h2>
             <div className="profile-contact-info">
-              <p><strong>Ubicación:</strong> {/*location*/}</p>
-              <p><strong>Sitio Web:</strong> <a href="" target="_blank" rel="noopener noreferrer">{/*websiteUrl*/}</a></p>
-              <p><strong>Email:</strong> {contact_email}</p>
-              <p><strong>Teléfono:</strong> {contact_phone}</p>
+              <p>
+                <strong>Ubicación:</strong> {/*location*/}
+              </p>
+              <p>
+                <strong>Sitio Web:</strong>{" "}
+                <a href="" target="_blank" rel="noopener noreferrer">
+                  {/*websiteUrl*/}
+                </a>
+              </p>
+              <p>
+                <strong>Email:</strong> {contact_email}
+              </p>
+              <p>
+                <strong>Teléfono:</strong> {contact_phone}
+              </p>
             </div>
             {/*<div className="profile-socials">
               {socialLinks.instagram && <a href={socialLinks.instagram} target="_blank" rel="noopener noreferrer">Instagram</a>}
@@ -176,7 +170,6 @@ return (
 
         {/* --- Columna Derecha (Contenido Principal) --- */}
         <section className="profile-content">
-
           {/* Sección: Misión, Visión y Valores */}
           <div className="profile-section profile-core-values">
             <div className="core-value-item">
@@ -194,7 +187,7 @@ return (
               </ul>
             </div>
           </div>
-          
+
           {/* Sección: Ranking de Donaciones */}
           <div className="profile-section">
             <h2 className="section-title">Últimas Donaciones</h2>
@@ -210,7 +203,6 @@ return (
             </ol>
           </div>
 
-
           {/* Sección: Impacto Social */}
           <div className="profile-section">
             <h2 className="section-title">Impacto Social</h2>
@@ -220,17 +212,10 @@ return (
           {/* Sección: Últimos Proyectos */}
           <div className="profile-section">
             <h2 className="section-title">Últimos Proyectos</h2>
-            <div className="profile-projects-grid">
-              {/*latestProjects.map(project => (
-                <div key={project.id} className="project-card">
-                  <img src={project.imageUrl} alt={project.title} width={300} height={180}/>
-                  <div className="project-card-content">
-                    <h4>{project.title}</h4>
-                    <p>{project.summary}</p>
-                    <a href={`/proyectos/${project.id}`} className="project-card-link">Ver más</a>
-                  </div>
-                </div>
-              ))*/}
+            <div className="profile-campaign-grid">
+              {/* <!--CAMPAÑAS--> */
+                <CampaignComponent ongId={id} />
+              }
             </div>
           </div>
         </section>
