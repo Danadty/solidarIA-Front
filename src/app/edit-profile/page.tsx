@@ -432,48 +432,87 @@ function FoundationEditForm() {
   );
 }
 
+interface UserData {
+  description: string;
+  phone: string;
+  address: string;
+}
+
 // --- Formulario Usuario ---
 function UserProfileEditForm() {
-  const [data, setData] = useState<UserData | null>(null);
+  const [data, setData] = useState<UserData>({
+    description: "",
+    phone: "",
+    address: "",
+  });
   const [loading, setLoading] = useState(false);
-
+  const [userProfileId, setUserProfileId] = useState<string | null>(null);
+  const [loadingRole, setLoadingRole] = useState(true);
+  const [role, setRole] = useState<string | null>(null);
+  useEffect(() => {
+    const storedRole = localStorage.getItem("role");
+    setRole(storedRole);
+    setLoadingRole(false);
+  }, []);
   useEffect(() => {
     const fetchData = async () => {
       const token = localStorage.getItem("token");
       if (!token) return;
+      // 🔹 Decodificar el token para obtener userId
+      const payloadBase64 = token.split(".")[1];
+      const decoded = JSON.parse(atob(payloadBase64));
+      const userId = decoded.id; // 👈 según tu backend, puede ser "sub" o "id"
 
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/user-profile`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      const json = await res.json();
-      setData({
-        description: json.data.description || "",
-        phone: json.data.phone || "",
-        address: json.data.address || "",
-      });
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/user-profile`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const json = await res.json();
+        const profiles = json.data || [];
+
+        // 🔹 Buscar el perfil que pertenece a este usuario
+        const myProfile = profiles.find((p: any) => p.userId === userId);
+        if (myProfile) {
+          setUserProfileId(myProfile.id);
+          setData({
+            description: myProfile.description || "",
+            phone: myProfile.phone || "",
+            address: myProfile.address || "",
+          });
+        } else {
+          console.log("Usuario no tiene perfil creado aún");
+          setData({ description: "", phone: "", address: "" });
+        }
+      } catch (err) {
+        console.error("Error al obtener perfiles:", err);
+      }
     };
+
     fetchData();
+    // const interval = setInterval(fetchData, 5000);
+    // return () => clearInterval(interval);
   }, []);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (!data) return;
+    if (!data || !userProfileId) return;
     setLoading(true);
 
     try {
       const token = localStorage.getItem("token");
       if (!token) throw new Error("No hay token");
 
-      const payload: any = {};
-      if (data.description) payload.description = data.description;
-      if (data.phone) payload.phone = data.phone;
-      if (data.address) payload.address = data.address;
-
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/user-profile`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-        body: JSON.stringify(payload),
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/user-profile/${userProfileId}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(data),
+        }
+      );
 
       if (!res.ok) throw new Error("Error al actualizar perfil");
       alert("Perfil de usuario actualizado!");
@@ -483,29 +522,39 @@ function UserProfileEditForm() {
       setLoading(false);
     }
   };
+  if (loadingRole) return <p>Cargando...</p>;
 
   if (!data) return <p>Cargando perfil de usuario...</p>;
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Editar Perfil de Usuario</h2>
+    <div className="container">
+
+    <form onSubmit={handleSubmit} className="form">
+      <section className="caja">
+
+      <h1>Editar Perfil de Usuario</h1>
+      </section>
       <input
+        className="input"
         value={data.description}
         onChange={(e) => setData({ ...data, description: e.target.value })}
         placeholder="Descripción"
       />
       <input
+        className="input"
         value={data.phone}
         onChange={(e) => setData({ ...data, phone: e.target.value })}
         placeholder="Teléfono"
       />
       <input
+        className="input"
         value={data.address}
         onChange={(e) => setData({ ...data, address: e.target.value })}
         placeholder="Dirección"
       />
-      <button type="submit" disabled={loading}>{loading ? "Guardando..." : "Guardar"}</button>
+      <button className="button" type="submit" disabled={loading}>{loading ? "Guardando..." : "Guardar"}</button>
     </form>
+</div>
   );
 }
 
@@ -563,11 +612,11 @@ export default function EditProfilePage() {
           </button>
         )} */}
       <div className="">
-        {role === "FOUNDATION" ? (
+        {role === "FOUNDATION" ?
           <FoundationEditForm />
-        ) : (
+          :
           <UserProfileEditForm />
-        )}
+        }
       </div>
 
     </div>

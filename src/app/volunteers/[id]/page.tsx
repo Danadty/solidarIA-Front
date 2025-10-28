@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { UserProfileAPI } from "src/lib";
+import { UserProfileAPI } from "../../../lib/api/userProfile.api";
 import UserProfileCard from "./components/UserProfileCard";
 import styles from "./volunteer-profile.module.css";
 import UserActivitiesSection from "./components/UserActivitiesSection";
