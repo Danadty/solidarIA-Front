@@ -85,7 +85,7 @@
   
   /* Hero Section */
   .hero {
-    background-color: #ffffff;
+    background-color: var(--color-3);
     padding: 4rem 2rem;
     text-align: center;
   }

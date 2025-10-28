@@ -1,7 +1,7 @@
 "use client";
 
 import { Box, Typography, Card, CardContent, CardActions, Button } from "@mui/material";
-import Grid from "@mui/material/Grid";
+import { Grid } from "@mui/material";
 import Link from "next/link";
 
 type Path = { title: string; description: string; action: string; style: string; href: string };
@@ -45,7 +45,15 @@ export default function PathSelector({ paths, recommended }: Props) {
       </Box>
       <Grid container spacing={3} justifyContent="center">
         {paths.map((p, i) => (
-          <Grid item key={i} xs={12} sm={6} md={3}>
+          <Grid
+            key={i}
+            sx={{
+              flex: { xs: '0 0 100%', sm: '0 0 50%', md: '0 0 25%' },
+              maxWidth: { xs: '100%', sm: '50%', md: '25%' },
+              display: 'flex',
+              justifyContent: 'center',
+            }}
+          >
             <Card sx={{
               borderRadius: 3,
               textAlign: 'center',

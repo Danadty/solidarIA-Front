@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { UserCampaignAPI } from "src/lib";
+import { UserCampaignAPI } from "../../../../lib";
 import ActivityCard from "./ActivityCard";
 import styles from "./UserActivitiesSection.module.css";
 

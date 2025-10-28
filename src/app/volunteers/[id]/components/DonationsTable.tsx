@@ -12,7 +12,7 @@ import TableRow from '@mui/material/TableRow';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
-import { DonationsAPI } from 'src/lib';
+import { DonationsAPI } from '../../../../lib';
 
 enum TITLE_LAST_DONATIONS {
   FOUNDATION = "Fundación",

@@ -43,6 +43,11 @@ label {
   background-color: var(--color-verde-oscuro);
   color: var(--color-primario);
   border-radius: 10px 10px 0 0; /* solo redondea arriba si querés */
+
+  h1{
+      color: var(--color-primario);
+
+  }
 }
 
 

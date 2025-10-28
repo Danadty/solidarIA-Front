@@ -1,0 +1,291 @@
+/* --- Contenedor principal --- */
+.container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background: linear-gradient(160deg, #f7f5ed 0%, #eafafc 45%, #ffffff 100%); */
+  font-family: 'Inter', sans-serif;
+}
+
+/* --- Formulario --- */
+.form {
+  background-color: #fff;
+  padding: 2rem 2rem;
+  border-radius: 20px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.15);
+  width: 100%;
+  max-width: 450px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 32px rgba(0,0,0,0.2);
+}
+
+/* --- Título --- */
+.title {
+  font-size: 2rem;
+  text-align: center;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+}
+
+/* --- Inputs --- */
+.input {
+  border: 1px solid #d3d3d3;
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+  font-size: 1rem;
+  transition: all 0.25s ease;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #44c8ff;
+  box-shadow: 0 0 0 3px rgba(68,200,255,0.25);
+}
+
+/* --- Botón principal --- */
+.button {
+  padding: 0.9rem;
+  border-radius: 12px;
+  border: none;
+  background-color: #2f855a;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.button:hover {
+  background-color: #38a169;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+/* --- Logo --- */
+.logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 1.2rem;
+}
+
+.logo-preview {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%; /* logo circular */
+  border: 3px solid #d3d3d3;
+  object-fit: cover;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.logo-preview:hover {
+  transform: scale(1.05);
+}
+
+/* --- Botones del logo --- */
+.logo-buttons {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.logo-buttons button {
+  padding: 0.6rem 1.2rem;
+  border-radius: 12px;
+  border: none;
+  background-color: #2f855a;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.logo-buttons button:hover {
+  background-color: #38a169;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* --- Texto adicional --- */
+.text {
+  text-align: center;
+  color: #2c3e50;
+  font-size: 0.95rem;
+}
+
+.text a {
+  color: #44c8ff;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.text a:hover {
+  color: #2b6cb0;
+  text-decoration: underline;
+}
+
+.caja {
+  width: calc(100% + 4rem); /* ancho del form + padding horizontal */
+  margin: -2rem 0 1rem -2rem; /* se eleva sobre el form */
+  padding: 1rem 0;
+  background-color: var(--color-verde-oscuro);
+  color: #fff;
+  border-radius: 12px 12px 0 0;
+  position: relative;
+  text-align: center;
+}
+
+.caja h2 {
+  color: var(--color-primario);
+}
+
+/* Triángulo decorativo abajo a la derecha */
+.caja::after {
+  content: "";
+  position: absolute;
+  right: 1.5rem;
+  bottom: -15px; /* justo debajo de la caja */
+  width: 0;
+  height: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-top: 15px solid var(--color-verde-oscuro);
+}
+
+
+
+/* .edit-form-container {
+  width: 100%;
+  max-width: 750px;
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 2.5rem;
+} */
+/*
+.view-profile-button {
+  width: 100%;
+  max-width: 750px;
+  padding: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+  background: var(--color-verde-oscuro);
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.view-profile-button:hover {
+  background: var(--color-fondo);
+  transform: scale(1.02);
+}
+*/
+.campaigns-container {
+    max-width: 1000px;   /* limita ancho máximo */
+  margin: 2rem auto 4rem auto;   /* top 2rem, bottom 4rem, centrado horizontal */
+  padding: 1.5rem;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    margin-bottom: 4rem; /* ← espacio extra debajo del container */
+
+}
+
+.campaigns-title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 0.5rem;
+}
+
+.campaigns-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.campaign-card {
+  background-color: #fdfdfd;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s;
+}
+
+.campaign-card:hover {
+  transform: translateY(-3px);
+}
+
+.campaign-img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+}
+
+.campaign-img.placeholder {
+  background-color: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  font-size: 0.9rem;
+}
+
+.campaign-info {
+  padding: 0.75rem;
+  flex-grow: 1;
+}
+
+.campaign-info h4 {
+  margin: 0 0 0.25rem;
+  font-size: 1rem;
+}
+
+.campaign-info p {
+  font-size: 0.875rem;
+  color: #555;
+  margin: 0 0 0.5rem;
+}
+
+.campaign-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.delete-btn {
+  background-color: #ff4d4f;
+  color: #fff;
+  border: none;
+  padding: 0.35rem 0.7rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: background 0.2s;
+}
+
+.delete-btn:hover {
+  background-color: #e04143;
+}
+.color{
+    background-color: var(--color-fondo);
+}

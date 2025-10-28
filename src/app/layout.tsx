@@ -13,7 +13,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="es">
       <body>
         <AuthProvider>
-          <Header isLoggedIn={isProfilePage} />
+          {/* <Header isLoggedIn={isProfilePage} /> */}
+          <Header />
           {children}
           <Chatbot />
         </AuthProvider>

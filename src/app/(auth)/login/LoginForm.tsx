@@ -32,18 +32,15 @@ export default function LoginForm() {
         throw new Error("No se recibió el token del servidor");
       }
 
-      const { token, email: userEmail, role,id } = data;
+      const { token, email: userEmail, role } = data;
 
       localStorage.setItem("token", token);
       localStorage.setItem("email", userEmail);
       localStorage.setItem("role", role);
-        // guardamos en estado para pasar al formulario
-      setToken(token);
-      setUserId(id);
 
       // ✅ Aquí verificamos si tiene fundación
       if (role === "FOUNDATION") {
-        const foundationRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/foundation/me/foundation`, {
+        const foundationRes = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/foundation/me/foundation`, {
           headers: { "Authorization": `Bearer ${token}` },
         });
 
@@ -57,7 +54,7 @@ export default function LoginForm() {
         }
       }
 
-      router.push("/home");
+      router.push("/");
     } catch (err: any) {
       const msg =
         err.response?.data?.message ||
@@ -136,7 +133,7 @@ export default function LoginForm() {
         <CreateFoundationForm
           token={token}
           userId={userId}
-          onCreated={() => router.push("/home")}
+          onCreated={() => router.push("/")}
         />
       )}
     </div>

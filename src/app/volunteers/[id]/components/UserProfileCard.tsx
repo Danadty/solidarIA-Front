@@ -27,34 +27,34 @@ interface UserProfileCardProps {
 
 export default function UserProfileCard({ profile }: UserProfileCardProps) {
   console.log("UserProfileCard recibió profile:", profile); // Debug
-  
+
   const { photoUrl, description, phone, address, createdAt, user } = profile;
-  
+
   const userName = user?.name || "Voluntario";
   const userEmail = user?.email || "";
 
   console.log("createdAt value:", createdAt);
 
-  const joinDate = createdAt && createdAt !== "Invalid Date" 
+  const joinDate = createdAt && createdAt !== "Invalid Date"
     ? new Date(createdAt).toLocaleDateString('es-ES', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-      })
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    })
     : "Fecha no disponible";
 
   return (
-    <Card sx={{ 
-      margin: 'auto', 
-      maxWidth: 'auto', 
+    <Card sx={{
+      margin: 'auto',
+      maxWidth: 'auto',
       boxShadow: 3,
       backgroundColor: 'var(#ffff)',
       border: `1px solid var(--color-3)`
     }}>
       <CardHeader
         avatar={
-          <Avatar 
-            sx={{ 
+          <Avatar
+            sx={{
               bgcolor: 'var(--color-3)',
               width: 120,
               height: 120,
@@ -62,7 +62,7 @@ export default function UserProfileCard({ profile }: UserProfileCardProps) {
               fontSize: '2.5rem',
               fontWeight: 'bold',
               color: 'var(--color-1)'
-            }} 
+            }}
             src={photoUrl || undefined}
             alt={`Foto de ${userName}`}
           >
@@ -76,9 +76,9 @@ export default function UserProfileCard({ profile }: UserProfileCardProps) {
         }
         subheader={
           description ? (
-            <Typography variant="body1" sx={{ 
-              color: 'var(--color-1)', 
-              mt: 1, 
+            <Typography variant="body1" sx={{
+              color: 'var(--color-1)',
+              mt: 1,
               fontStyle: 'italic',
               opacity: 0.8
             }}>
@@ -86,7 +86,7 @@ export default function UserProfileCard({ profile }: UserProfileCardProps) {
             </Typography>
           ) : null
         }
-        sx={{ 
+        sx={{
           padding: 3,
           alignItems: 'flex-start'
         }}
@@ -96,11 +96,16 @@ export default function UserProfileCard({ profile }: UserProfileCardProps) {
         <Grid container spacing={3}>
           {/* Teléfono */}
           {phone && (
-            <Grid item xs={12} sm={6}>
+            <Grid sx={{
+              flex: { xs: '0 0 100%', sm: '0 0 50%' },
+              maxWidth: { xs: '100%', sm: '50%' },
+              display: 'flex',
+              justifyContent: 'center',
+            }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, height: '100%' }}>
-                <PhoneIcon sx={{ 
-                  color: 'var(--color-2)', 
-                  fontSize: 28 
+                <PhoneIcon sx={{
+                  color: 'var(--color-2)',
+                  fontSize: 28
                 }} />
                 <Box>
                   <Typography variant="body1" fontWeight="medium" sx={{ color: 'var(--color-1)' }}>
@@ -116,11 +121,16 @@ export default function UserProfileCard({ profile }: UserProfileCardProps) {
 
           {/* Email */}
           {userEmail && (
-            <Grid item xs={12} sm={6}>
+            <Grid sx={{
+              flex: { xs: '0 0 100%', sm: '0 0 50%' },
+              maxWidth: { xs: '100%', sm: '50%' },
+              display: 'flex',
+              justifyContent: 'center',
+            }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, height: '100%' }}>
-                <EmailIcon sx={{ 
-                  color: 'var(--color-2)', 
-                  fontSize: 28 
+                <EmailIcon sx={{
+                  color: 'var(--color-2)',
+                  fontSize: 28
                 }} />
                 <Box>
                   <Typography variant="body1" fontWeight="medium" sx={{ color: 'var(--color-1)' }}>
@@ -136,11 +146,16 @@ export default function UserProfileCard({ profile }: UserProfileCardProps) {
 
           {/* Dirección */}
           {address && (
-            <Grid item xs={12} sm={6}>
+            <Grid sx={{
+              flex: { xs: '0 0 100%', sm: '0 0 50%' },
+              maxWidth: { xs: '100%', sm: '50%' },
+              display: 'flex',
+              justifyContent: 'center',
+            }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, height: '100%' }}>
-                <LocationOnIcon sx={{ 
-                  color: 'var(--color-2)', 
-                  fontSize: 28 
+                <LocationOnIcon sx={{
+                  color: 'var(--color-2)',
+                  fontSize: 28
                 }} />
                 <Box>
                   <Typography variant="body1" fontWeight="medium" sx={{ color: 'var(--color-1)' }}>
@@ -155,11 +170,16 @@ export default function UserProfileCard({ profile }: UserProfileCardProps) {
           )}
 
           {/* Fecha de registro */}
-          <Grid item xs={12} sm={6}>
+          <Grid sx={{
+            flex: { xs: '0 0 100%', sm: '0 0 50%' },
+            maxWidth: { xs: '100%', sm: '50%' },
+            display: 'flex',
+            justifyContent: 'center',
+          }}>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, height: '100%' }}>
-              <CalendarTodayIcon sx={{ 
-                color: 'var(--color-2)', 
-                fontSize: 28 
+              <CalendarTodayIcon sx={{
+                color: 'var(--color-2)',
+                fontSize: 28
               }} />
               <Box>
                 <Typography variant="body1" fontWeight="medium" sx={{ color: 'var(--color-1)' }}>

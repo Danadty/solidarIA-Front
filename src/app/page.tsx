@@ -47,7 +47,7 @@ export default function HomePage() {
           id: f.id ?? f._id ?? idx,
           nombre: f.name ?? f.nombre ?? 'Fundación',
           descripcion: f.description ?? f.descripcion ?? '',
-          imagen: f.logoUrl ?? f.logo ?? f.imageUrl ?? '/vercel.svg',
+          imagen: f.logo_url ?? f.logo ?? f.imageUrl ?? '/vercel.svg',
         }));
         const mappedVols = campaignsAll.slice(0, 5).map((c: any, idx: number) => ({
           id: c.id ?? c._id ?? idx,

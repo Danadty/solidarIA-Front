@@ -123,3 +123,26 @@
     text-align: center;
   }
 }
+
+
+.viewProfileButton {
+   background: oklch(0.8 0 0 / 0.2);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  color: var(--text-color);
+  transition: background 0.2s ease;
+}
+
+.viewProfileButton:hover {
+  background: var(--color-secundario);
+  color: var(--color-primario);
+}
+
+.sessionBtnsContainer {
+  display: flex;
+  gap: 1rem; /* espacio entre los botones */
+  align-items: center;
+}
