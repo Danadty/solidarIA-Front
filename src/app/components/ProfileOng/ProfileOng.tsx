@@ -158,13 +158,13 @@ const OngProfile: React.FC<OngProfileProps> = ({
                 <strong>Teléfono:</strong> {contact_phone}
               </p>
             </div>
-            {/*<div className="profile-socials">
+            {/* <div className="profile-socials">
               {socialLinks.instagram && <a href={socialLinks.instagram} target="_blank" rel="noopener noreferrer">Instagram</a>}
               {socialLinks.twitter && <a href={socialLinks.twitter} target="_blank" rel="noopener noreferrer">Twitter</a>}
               {socialLinks.facebook && <a href={socialLinks.facebook} target="_blank" rel="noopener noreferrer">Facebook</a>}
               {socialLinks.linkedin && <a href={socialLinks.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>}
               
-            </div>*/}
+            </div> */}
           </div>
         </aside>
 
@@ -200,9 +200,46 @@ const OngProfile: React.FC<OngProfileProps> = ({
                   </span>
                 </li>
               ))*/}
+                <li  className="donation-item">
+                  <span className="donation-name">Esteban Karaputny</span>
+                  <span className="donation-details">
+                    Proyecto construcción - <span className="donation-date">$10000</span>
+                  </span>
+                </li>
+                <li  className="donation-item">
+                  <span className="donation-name">Dana Torres</span>
+                  <span className="donation-details">
+                    Proyecto construcción - <span className="donation-date">$5000</span>
+                  </span>
+                </li>
+                <li  className="donation-item">
+                  <span className="donation-name">Franco Torrico</span>
+                  <span className="donation-details">
+                    Proyecto construcción - <span className="donation-date">$5000</span>
+                  </span>
+                </li>
+                <li  className="donation-item">
+                  <span className="donation-name">Nelson Salto</span>
+                  <span className="donation-details">
+                    Proyecto construcción - <span className="donation-date">$15000</span>
+                  </span>
+                </li>
+                <li  className="donation-item">
+                  <span className="donation-name">Alan Quispe</span>
+                  <span className="donation-details">
+                    Proyecto construcción - <span className="donation-date">$5000</span>
+                  </span>
+                </li>
             </ol>
+            
           </div>
-
+          {/*Sección: donar*/}
+          <PasarelaPagos 
+              ongId={id} 
+              ongName={name} 
+              contact_email={contact_email} 
+              contact_phone={contact_phone} 
+            />
           {/* Sección: Impacto Social */}
           <div className="profile-section">
             <h2 className="section-title">Impacto Social</h2>
