@@ -42,7 +42,7 @@ export default function Chatbot() {
         setLoading(true);
 
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/chat-gemini/recommend`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/chat-gemini/recommend`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', Accept: '*/*' },
                 body: JSON.stringify({ message: input }),

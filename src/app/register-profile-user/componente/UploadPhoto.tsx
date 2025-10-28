@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { UserProfileAPI } from 'src/lib';
+import { UserProfileAPI } from '../../../lib/api/userProfile.api';
 
 interface UploadPhotoProps {
   profileId: string;
