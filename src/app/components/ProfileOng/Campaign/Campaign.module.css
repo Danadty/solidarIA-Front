@@ -9,3 +9,9 @@
 
 
 
+.campaingCard img {
+    width: 10rem; /* ancho fijo */
+    height: 5rem; /* alto fijo */
+    border-radius: 4px; /* opcional, bordes redondeados */
+    object-fit: cover; /* asegura que la imagen se ajuste bien */
+}
