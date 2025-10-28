@@ -14,16 +14,36 @@ export default function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [role, setRole] = useState<string | null>(null);
   const [foundationId, setFoundationId] = useState<string | null>(null);
+  const [userProfileId, setUserProfileId] = useState<string | null>(null);
+
   const router = useRouter();
+
+  useEffect(() => {
+  const interval = setInterval(() => {
+    const token = localStorage.getItem("token");
+    const role = localStorage.getItem("role");
+    setIsLoggedIn(!!token);
+    setRole(role);
+  }, 1500);
+
+  return () => clearInterval(interval);
+}, []);
+
   useEffect(() => {
     const token = localStorage.getItem("token"); // Esto SÍ corre en el cliente
     setIsLoggedIn(!!token);
+    setRole(localStorage.getItem("role")); // obtener rol
+    setFoundationId(localStorage.getItem("foundationId"));
 
     // Opcional: revisar cambios cada 500ms si querés que se actualice al login
     const interval = setInterval(() => {
       const tokenCheck = localStorage.getItem("token");
+  //     const storedUserProfileId = localStorage.getItem("userProfileId");
+  // const storedFoundationId = localStorage.getItem("foundationId");
       setIsLoggedIn(!!tokenCheck);
       setRole(localStorage.getItem("role")); // obtener rol
+      // setFoundationId(storedFoundationId);
+      // setUserProfileId(storedUserProfileId);
 
     }, 500);
     // 🚀 Traer foundationId si el rol es FOUNDATION
@@ -40,10 +60,31 @@ export default function Header() {
         }
       }
     };
-    fetchFoundationId();
+    // 🚀 Traer userProfileId si el rol es USER
+    const fetchUserProfileId = async () => {
+      if (localStorage.getItem("role") === "USER" && token) {
+        try {
+          // Decodificar token para obtener userId
+          const payloadBase64 = token.split(".")[1];
+          const decoded = JSON.parse(atob(payloadBase64));
+          const userId = decoded.id;
 
+          const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/user-profile`, {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+          const json = await res.json();
+          const profiles = json.data || [];
+          const myProfile = profiles.find((p: any) => p.userId === userId);
+          if (myProfile) setUserProfileId(myProfile.id);
+        } catch (err) {
+          console.error("Error fetching user profile:", err);
+        }
+      }
+    };
+    fetchFoundationId();
+    fetchUserProfileId();
     return () => clearInterval(interval);
-  }, []);
+  }, [isLoggedIn]);
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("role");
@@ -52,10 +93,16 @@ export default function Header() {
     setIsLoggedIn(false);
     window.location.href = "/login";
   };
-  const handleViewPublicProfile = () => {
+  const handleViewPublicProfileFoundation = () => {
     if (!foundationId) return alert("No se encontró la fundación");
     router.push(`/foundation/${foundationId}`);
   };
+
+  const handleViewPublicProfileUser = () => {
+    if (!userProfileId) return alert("No se encontró tu perfil");
+    router.push(`/volunteers/${userProfileId}`);
+  };
+
 
 
   return (
@@ -94,14 +141,20 @@ export default function Header() {
             </button>
           )}
           {/* Botón perfil público para FUNDATION */}
-          {role === "FOUNDATION" && (
-            <button
-              className={styles.viewProfileButton}
-              onClick={handleViewPublicProfile}
-            >
-              Ver mi perfil
-            </button>
-          )}
+          {/* Ver perfil público de la fundación */}
+          {role === "USER" && userProfileId && (
+            <button className={styles.viewProfileButton} 
+            onClick={handleViewPublicProfileUser}
+            >Ver mi perfil
+            </button>)}
+
+          {/* Botón perfil público para FUNDATION */} 
+          {role === "FOUNDATION" && foundationId && (
+            <button className={styles.viewProfileButton} 
+            onClick={handleViewPublicProfileFoundation}
+            >Ver mi perfil
+            </button>)}
+
 
           <div className={styles.sessionBtn}>
             <button
@@ -112,7 +165,7 @@ export default function Header() {
             </button>
           </div>
         </div>
-        
+
       </div>
     </header>
   );
