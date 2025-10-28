@@ -1,6 +1,9 @@
 import styles from "./Contact.module.css";
 import Image from "next/image";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import TwitterIcon from "@mui/icons-material/Twitter";
+
 import GitHubIcon from "@mui/icons-material/GitHub";
 
 export default function ContactPage() {
@@ -146,16 +149,21 @@ export default function ContactPage() {
       </section>
 
       {/* Contacto */}
-      <section className={styles.contact}>
-        <h2>Contacto</h2>
-        <p>📧 contacto@solidaria.org</p>
-        <p>📍 Buenos Aires, Argentina</p>
-        <div className={styles.socials}>
-          <a href="#">LinkedIn</a>
-          <a href="#">Instagram</a>
-          <a href="#">Twitter</a>
-        </div>
-      </section>
+<section className={styles.contact}>
+  <div className={styles.card}>
+    <h2>Contacto</h2>
+    <p>📧 contacto@solidaria.org</p>
+    <p>📍 Buenos Aires, Argentina</p>
+    <div className={styles.socials}>
+<div className={styles.socialIcons}>
+  <a href="#"><LinkedInIcon /></a>
+  <a href="#"><InstagramIcon /></a>
+  <a href="#"><TwitterIcon /></a>
+</div>
+    </div>
+  </div>
+</section>
+
     </main>
   );
 }

@@ -213,3 +213,13 @@
     height: 80px;
   }
 }
+.contact {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.contact .card {
+  text-align: center;
+  max-width: 400px;
+}
