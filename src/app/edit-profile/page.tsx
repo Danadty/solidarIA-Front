@@ -16,6 +16,7 @@ interface UserData {
   description: string;
   phone: string;
   address: string;
+  photoUrl?: string;
 }
 interface Campaign {
   id: string;
@@ -157,7 +158,10 @@ function FoundationEditForm() {
       alert("Error al subir logo");
     }
   };
-  if (!data) return <p>Cargando fundacion...</p>;
+  if (!data) return <div className="loadingContainer">
+                        <div className="spinner"></div>
+                        <p>Cargando fundacion...</p>
+                    </div>;
 
 
   const handleSubmitCampaign = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -432,11 +436,11 @@ function FoundationEditForm() {
   );
 }
 
-interface UserData {
-  description: string;
-  phone: string;
-  address: string;
-}
+// interface UserData {
+//   description: string;
+//   phone: string;
+//   address: string;
+// }
 
 // --- Formulario Usuario ---
 function UserProfileEditForm() {
@@ -449,6 +453,8 @@ function UserProfileEditForm() {
   const [userProfileId, setUserProfileId] = useState<string | null>(null);
   const [loadingRole, setLoadingRole] = useState(true);
   const [role, setRole] = useState<string | null>(null);
+
+  const [photoFile, setPhotoFile] = useState<File | null>(null);
   useEffect(() => {
     const storedRole = localStorage.getItem("role");
     setRole(storedRole);
@@ -478,6 +484,7 @@ function UserProfileEditForm() {
             description: myProfile.description || "",
             phone: myProfile.phone || "",
             address: myProfile.address || "",
+            photoUrl: myProfile.photoUrl || "",
           });
         } else {
           console.log("Usuario no tiene perfil creado aún");
@@ -492,6 +499,42 @@ function UserProfileEditForm() {
     // const interval = setInterval(fetchData, 5000);
     // return () => clearInterval(interval);
   }, []);
+  // 🧠 Subida de foto de perfil
+  const handlePhotoUpload = async () => {
+    if (!photoFile || !userProfileId) return alert("Seleccioná una imagen primero");
+
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) throw new Error("No hay token");
+
+      const formData = new FormData();
+      formData.append("file", photoFile);
+
+      const uploadRes = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/user-profile/${userProfileId}/upload-photo`,
+        {
+          method: "POST",
+          headers: { Authorization: `Bearer ${token}` },
+          body: formData,
+        }
+      );
+
+      if (!uploadRes.ok) throw new Error("Error al subir la foto");
+      alert("✅ Foto subida correctamente");
+
+      // Refrescar perfil para mostrar la nueva foto
+      const updatedRes = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/user-profile`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const updatedData = await updatedRes.json();
+      const updatedProfile = updatedData.data.find((p: any) => p.id === userProfileId);
+      if (updatedProfile) setData(updatedProfile);
+      setPhotoFile(null);
+    } catch (err) {
+      console.error(err);
+      alert("Error al subir la foto ❌");
+    }
+  };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -522,9 +565,15 @@ function UserProfileEditForm() {
       setLoading(false);
     }
   };
-  if (loadingRole) return <p>Cargando...</p>;
+  if (loadingRole) return <div className="loadingContainer">
+                        <div className="spinner"></div>
+                        <p>Cargando...</p>
+                    </div>;
 
-  if (!data) return <p>Cargando perfil de usuario...</p>;
+  if (!data) return <div className="loadingContainer">
+                        <div className="spinner"></div>
+                        <p>Cargando perfil de usuario...</p>
+                    </div>;
 
   return (
     <div className="container">
@@ -534,6 +583,33 @@ function UserProfileEditForm() {
 
       <h1>Editar Perfil de Usuario</h1>
       </section>
+      {/* --- Imagen de perfil --- */}
+        <div className="logo-container">
+          {data.photoUrl && (
+            <img
+              src={data.photoUrl}
+              alt="Foto de perfil"
+              className="logo-preview"
+            />
+          )}
+          <div className="logo-buttons">
+            <button type="button" onClick={() => document.getElementById("photoInput")?.click()}>
+              {photoFile ? "Cambiar foto" : "Subir foto"}
+            </button>
+            {photoFile && (
+              <button type="button" onClick={handlePhotoUpload}>Guardar foto</button>
+            )}
+          </div>
+          <input
+            type="file"
+            id="photoInput"
+            style={{ display: "none" }}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setPhotoFile(e.target.files?.[0] || null)
+            }
+          />
+        </div>
+
       <input
         className="input"
         value={data.description}
@@ -594,7 +670,10 @@ export default function EditProfilePage() {
   //   }
   // }, []);
 
-  if (!role) return <p>Cargando...</p>;
+  if (!role) return <div className="loadingContainer">
+                        <div className="spinner"></div>
+                        <p>Cargando...</p>
+                    </div>;
 
   // const handleViewPublicProfile = () => {
   //   if (!foundationId) return alert("No se encontró la fundación");
