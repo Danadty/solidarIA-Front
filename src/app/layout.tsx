@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import { usePathname } from "next/navigation";
 import { AuthProvider } from '../lib';
 import Chatbot from "./components/chatbot";
+import SiteFooter from './components/SiteFooter';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -18,6 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
           <Chatbot />
         </AuthProvider>
+        <SiteFooter />
         
       </body>
     </html>
