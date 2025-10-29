@@ -1,18 +1,3 @@
-<<<<<<< HEAD
-:root{
-    --color-primario: #f6f1e2;
-    --color-secundario: #497568;
-    --color-verde-oscuro: #334c47;
-    --color-fondo: #699689;
-    --color-texto: #98b9a1;
-    --light-gray: #f8f9fa;
-    --border-color: #dee2e6;
-    --text-color: #333;
-    --text-light: #555;
-    --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    --card-radius: 12px;
-    --color-white: #ffffff;
-=======
 :root {
   --color-primario: #f6f1e2;
   --color-secundario: #497568;
@@ -30,13 +15,8 @@
   --color-2: #497568;
   --color-3: #699689;
   --color-4: #f8f9fa;
-
-  --color-5: #334c47; 
-
->>>>>>> 03e4ee54af1a7a228277f388f95d8f092261b326
+  --color-5: #334c47;
 }
-
-
 
 /* reset básico / tipografía (ajusta a tu preferencia) */
 html,

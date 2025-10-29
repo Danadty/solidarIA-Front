@@ -10,12 +10,13 @@ type Props = { voluntariados: Vol[] };
 export default function VoluntariadosCarousel({ voluntariados }: Props) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const slideCount = Math.ceil(voluntariados.length / 2);
+  const [paused, setPaused] = useState(false);
 
   useEffect(() => {
-    if (!slideCount) return;
+    if (!slideCount || paused) return;
     const id = setInterval(() => setCurrentSlide((p) => (p + 1) % slideCount), 5000);
     return () => clearInterval(id);
-  }, [slideCount]);
+  }, [slideCount, paused]);
 
   const groups = useMemo(() => {
     const arr: Vol[][] = [];
@@ -29,7 +30,9 @@ export default function VoluntariadosCarousel({ voluntariados }: Props) {
   return (
     <Box sx={{ py: 6, px: { xs: 2, md: 8 } }}>
       <Typography variant="h5" sx={{ mb: 3, fontWeight: 700, textAlign: 'center' }}>Últimos voluntariados</Typography>
-      <Box sx={{ position: 'relative' }}>
+      <Box sx={{ position: 'relative' }}
+           onMouseEnter={() => setPaused(true)}
+           onMouseLeave={() => setPaused(false)}>
         <Box sx={{ overflow: 'hidden', borderRadius: 3 }}>
           <Box sx={{ display: 'flex', transition: 'transform 0.5s ease', transform: `translateX(-${currentSlide * 100}%)`, width: `${slideCount * 100}%` }}>
             {groups.map((group, idx) => (
@@ -51,6 +54,8 @@ export default function VoluntariadosCarousel({ voluntariados }: Props) {
                         transition: 'transform 0.3s',
                         '&:hover': { transform: 'translateY(-5px)' },
                       }}
+                      onMouseEnter={() => setPaused(true)}
+                      onMouseLeave={() => setPaused(false)}
                     >
                       <Box
                         component="img"
@@ -89,13 +94,13 @@ export default function VoluntariadosCarousel({ voluntariados }: Props) {
         </Box>
       </Box>
       <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 2, mt: 2, flexWrap: 'wrap' }}>
-        <Button className="shadow-inset-center" onClick={prev} sx={{ backgroundColor: 'var(--text-color)', color: 'var(--color-primario)', minWidth: 36, px: 1, '&:hover': { backgroundColor: 'var(--color-secundario)' } }}>‹</Button>
+        <Button className="shadow-inset-center" variant="contained" onClick={prev} sx={{ backgroundColor: 'var(--color-secundario)', color: 'var(--color-primario)', minWidth: 36, px: 1, '&:hover': { backgroundColor: 'var(--color-verde-oscuro)' } }}>‹</Button>
         <Box sx={{ display: 'flex', gap: 1 }}>
           {Array.from({ length: slideCount }).map((_, idx) => (
             <Box key={idx} onClick={() => setCurrentSlide(idx)} sx={{ width: 10, height: 10, borderRadius: '50%', backgroundColor: idx === currentSlide ? 'var(--text-color)' : 'var(--color-verde-oscuro)', cursor: 'pointer' }} />
           ))}
         </Box>
-        <Button className="shadow-inset-center" onClick={next} sx={{ backgroundColor: 'var(--text-color)', color: 'var(--color-primario)', minWidth: 36, px: 1, '&:hover': { backgroundColor: 'var(--color-secundario)' } }}>›</Button>
+        <Button className="shadow-inset-center" variant="contained" onClick={next} sx={{ backgroundColor: 'var(--color-secundario)', color: 'var(--color-primario)', minWidth: 36, px: 1, '&:hover': { backgroundColor: 'var(--color-verde-oscuro)' } }}>›</Button>
       </Box>
     </Box>
   );
