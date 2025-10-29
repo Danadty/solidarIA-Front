@@ -9,7 +9,7 @@ type Props = { voluntariados: Vol[] };
 
 export default function VoluntariadosCarousel({ voluntariados }: Props) {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const slideCount = Math.ceil(voluntariados.length / 5);
+  const slideCount = Math.ceil(voluntariados.length / 2);
 
   useEffect(() => {
     if (!slideCount) return;
@@ -19,7 +19,7 @@ export default function VoluntariadosCarousel({ voluntariados }: Props) {
 
   const groups = useMemo(() => {
     const arr: Vol[][] = [];
-    for (let i = 0; i < voluntariados.length; i += 5) arr.push(voluntariados.slice(i, i + 5));
+    for (let i = 0; i < voluntariados.length; i += 2) arr.push(voluntariados.slice(i, i + 2));
     return arr;
   }, [voluntariados]);
 
@@ -34,15 +34,16 @@ export default function VoluntariadosCarousel({ voluntariados }: Props) {
           <Box sx={{ display: 'flex', transition: 'transform 0.5s ease', transform: `translateX(-${currentSlide * 100}%)`, width: `${slideCount * 100}%` }}>
             {groups.map((group, idx) => (
               <Box key={idx} sx={{ flex: '0 0 100%', px: { xs: 0, md: 1 } }}>
-                <Box sx={{ display: 'flex', gap: 2, flexDirection: { xs: 'column', md: 'row' } }}>
+                <Box sx={{ display: 'flex', gap: { xs: 1.5, md: 2 }, flexDirection: 'row' }}>
                   {group.map((v) => (
                     <Card
                       key={v.id}
                       sx={{
                         flex: 1,
                         display: 'flex',
-                        gap: 2,
-                        p: 2,
+                        flexDirection: { xs: 'column', md: 'row' },
+                        gap: { xs: 1.5, md: 2 },
+                        p: { xs: 1.5, md: 2 },
                         alignItems: { xs: 'stretch', md: 'center' },
                         borderRadius: 3,
                         overflow: 'hidden',
@@ -51,10 +52,33 @@ export default function VoluntariadosCarousel({ voluntariados }: Props) {
                         '&:hover': { transform: 'translateY(-5px)' },
                       }}
                     >
-                      <Box component="img" src={v.imagen} alt={v.titulo} sx={{ width: { xs: '100%', md: 140 }, height: { xs: 160, md: 120 }, objectFit: 'cover', borderRadius: 2 }} />
-                      <CardContent sx={{ p: 0 }}>
-                        <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>{v.titulo}</Typography>
-                        <Typography variant="body2" sx={{ mt: 1 }}>{v.descripcion.length > 100 ? v.descripcion.slice(0, 100) + '…' : v.descripcion}</Typography>
+                      <Box
+                        component="img"
+                        src={v.imagen}
+                        alt={v.titulo}
+                        sx={{
+                          width: { xs: '100%', md: 140 },
+                          height: { xs: 'auto', md: 120 },
+                          aspectRatio: { xs: '4 / 3', md: 'auto' } as any,
+                          objectFit: 'cover',
+                          borderRadius: 2,
+                        }}
+                      />
+                      <CardContent sx={{ p: 0, minWidth: 0 }}>
+                        <Typography variant="subtitle1" sx={{ fontWeight: 700, fontSize: { xs: '0.95rem', md: '1rem' } }}>{v.titulo}</Typography>
+                        <Typography
+                          variant="body2"
+                          sx={{
+                            mt: 0.75,
+                            fontSize: { xs: '0.85rem', md: '0.9rem' },
+                            display: '-webkit-box',
+                            WebkitLineClamp: { xs: 3, md: 2 } as any,
+                            WebkitBoxOrient: 'vertical',
+                            overflow: 'hidden'
+                          }}
+                        >
+                          {v.descripcion}
+                        </Typography>
                       </CardContent>
                     </Card>
                   ))}
