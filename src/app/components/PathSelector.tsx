@@ -73,13 +73,21 @@ export default function PathSelector({ paths, recommended }: Props) {
               </CardContent>
               <CardActions sx={{ justifyContent: 'center' }}>
                 <Link href={p.href}>
-                  <Button className="shadow-inset-center"
-                    variant={p.style === 'outline' ? 'outlined' : 'contained'}
+                  <Button
+                    className="shadow-inset-center"
+                    variant="contained"
                     sx={{
-                      backgroundColor: p.style === 'var(--color-1)' ? 'var(--color-verde-oscuro)' : 'var(--color-texto)',
-                      color: 'var(--color-white)',
-                      borderColor: 'var(--color-white)',
-                      '&:hover': { backgroundColor: 'var(--color-secundario)', color: 'var(--color-primario)' },
+                      backgroundColor: (
+                        p.title === 'Voluntario' ? 'var(--color-primario)' : 'var(--color-1)'
+                      ),
+                      color: (
+                        p.title === 'Voluntario' ? 'var(--color-text)' : 'var(--color-white)'
+                      ),
+                      borderColor: 'transparent',
+                      '&:hover': {
+                        backgroundColor: 'var(--color-secundario)',
+                        color: 'var(--color-white)'
+                      },
                     }}
                   >
                     {p.action}
