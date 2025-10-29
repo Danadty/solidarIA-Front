@@ -90,12 +90,12 @@ const OngProfile: React.FC<OngProfileProps> = ({
           </div>
           <h1 className="profile-name">{name}</h1>
           <div className="profile-cta-buttons">
-            <button type="button" className="profile-button-primary">
+            <a className="profile-button-primary" href="#donarMas" >
               Donar ahora
-            </button>
-            <button type="button" className="profile-button-secondary">
+            </a>
+            <a className="profile-button-secondary" href="/volunteers#Sumarme">
               Ser voluntario
-            </button>
+            </a>
           </div>
         </div>
       </header>
@@ -234,12 +234,15 @@ const OngProfile: React.FC<OngProfileProps> = ({
             
           </div>
           {/*Sección: donar*/}
+          <div id="donarMas">
           <PasarelaPagos 
               ongId={id} 
               ongName={name} 
               contact_email={contact_email} 
               contact_phone={contact_phone} 
+              
             />
+             </div>
           {/* Sección: Impacto Social */}
           <div className="profile-section">
             <h2 className="section-title">Impacto Social</h2>
