@@ -76,7 +76,7 @@ export default function PathSelector({ paths, recommended }: Props) {
                   <Button className="shadow-inset-center"
                     variant={p.style === 'outline' ? 'outlined' : 'contained'}
                     sx={{
-                      backgroundColor: p.style === 'var(--light-gray)' ? 'var(--color-verde-oscuro)' : 'var(--color-texto)',
+                      backgroundColor: p.style === 'var(--color-1)' ? 'var(--color-verde-oscuro)' : 'var(--color-texto)',
                       color: 'var(--color-white)',
                       borderColor: 'var(--color-white)',
                       '&:hover': { backgroundColor: 'var(--color-secundario)', color: 'var(--color-primario)' },

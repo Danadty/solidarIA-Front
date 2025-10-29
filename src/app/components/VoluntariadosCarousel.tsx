@@ -31,8 +31,8 @@ export default function VoluntariadosCarousel({ voluntariados }: Props) {
     <Box sx={{ py: 6, px: { xs: 2, md: 8 } }}>
       <Typography variant="h5" sx={{ mb: 3, fontWeight: 700, textAlign: 'center' }}>Últimos voluntariados</Typography>
       <Box sx={{ position: 'relative' }}
-           onMouseEnter={() => setPaused(true)}
-           onMouseLeave={() => setPaused(false)}>
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}>
         <Box sx={{ overflow: 'hidden', borderRadius: 3 }}>
           <Box sx={{ display: 'flex', transition: 'transform 0.5s ease', transform: `translateX(-${currentSlide * 100}%)`, width: `${slideCount * 100}%` }}>
             {groups.map((group, idx) => (
