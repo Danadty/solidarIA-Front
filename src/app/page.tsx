@@ -178,7 +178,7 @@ export default function HomePage() {
       display: 'flex', flexDirection: 'column',
       '& .MuiTypography-root': { fontFamily: 'inherit' }
     }}>
-      <Box sx={{ backgroundColor: 'oklch(0.8169 0.0327 143.82 / 30.9%)', pb: 3, pt: 0, overflow: 'hidden', flex: 1,
+      <Box sx={{ pb: 3, pt: 0, overflow: 'hidden', flex: 1,
         '& > *:last-child': { marginBottom: 0 }
       }}>
         <Hero />

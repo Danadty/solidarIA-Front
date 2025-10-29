@@ -18,15 +18,17 @@ export default function OngsGrid({ ongs }: Props) {
         justifyItems: 'center'
       }}>
         {ongs.map((ong) => (
-          <Card key={ong.id} sx={{ width: '100%', borderRadius: 3, overflow: 'hidden', boxShadow: '0 4px 10px rgba(0,0,0,0.1)', '&:hover': { transform: 'translateY(-5px)', transition: '0.3s' }, height: '100%', maxWidth: 420 }}>
+          <Card key={ong.id} sx={{ width: '100%', borderRadius: 3, overflow: 'hidden', boxShadow: '0 4px 10px rgba(0,0,0,0.1)', '&:hover': { transform: 'translateY(-5px)', transition: '0.3s' }, height: '25rem', maxWidth: 420 }}>
             <Box component="img" src={ong.imagen} alt={ong.nombre} sx={{ width: '100%', height: 200, objectFit: 'cover' }} />
             <CardContent>
               <Typography variant="h6" sx={{ fontWeight: 600 }}>{ong.nombre}</Typography>
-              <Typography variant="body2" sx={{ mt: 1 }}>{ong.descripcion}</Typography>
+              <Typography variant="body2" sx={{ mt: 1 }}>{ong.descripcion.length > 99
+                                ? `${ong.descripcion.substring(0, 100)}...`
+                                : ong.descripcion}</Typography>
             </CardContent>
             <CardActions sx={{ px: 2, pb: 2, gap: 1 }}>
               <Link href="/ongs"><Button className="shadow-inset-center" size="small" variant="contained" sx={{ background: 'var(--color-secundario)', color: 'var(--color-primario)', '&:hover': { background: 'var(--color-verde-oscuro)' } }}>Ver más</Button></Link>
-              <Link href="/volunteers"><Button className="shadow-inset-center" size="small" variant="outlined" sx={{ borderColor: 'var(--text-color)', color: 'var(--text-color)', '&:hover': { borderColor: 'var(--color-secundario)', color: 'var(--color-secundario)' } }}>Donar</Button></Link>
+              <Link href="/volunteers"><Button className="shadow-inset-center" size="small" variant="outlined" sx={{ borderColor: 'var(--color-text)', color: 'var(--color-text)', '&:hover': { borderColor: 'var(--color-secundario)', color: 'var(--color-secundario)' } }}>Donar</Button></Link>
             </CardActions>
           </Card>
         ))}

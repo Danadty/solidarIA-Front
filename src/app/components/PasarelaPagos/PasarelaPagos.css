@@ -44,7 +44,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  border: 2px solid var(--color-texto);
+  border: 2px solid var(--color-fondo);
   padding: 8px 12px;
   border-radius: 8px;
   cursor: pointer;
@@ -52,7 +52,7 @@
 }
 
 .montos-radio:hover {
-  background: var(--color-texto);
+  background: var(--color-secundario);
   color: #fff;
 }
 
@@ -67,12 +67,12 @@
   padding: 8px 12px;
   border-radius: 6px;
   width: 100px;
-  border: solid 1px var(--color-texto);
+  border: solid 1px var(--color-text);
   margin-left: 5px;
 }
 
 .pasarela-button { 
-  background: linear-gradient(90deg, var(--color-secundario) 0%, var(--color-texto) 100%);
+  background: linear-gradient(90deg, var(--color-secundario) 0%, var(--color-fondo) 100%);
   color: #fff;
   font-size: 1.1rem;
   font-weight: 600;
@@ -85,6 +85,6 @@
 }
 
 .pasarela-button:hover {
-  background: linear-gradient(90deg, var(--color-texto) 0%, var(--color-secundario) 100%);
+  background: linear-gradient(90deg, var(--color-fondo) 0%, var(--color-secundario) 100%);
   transform: translateY(-2px) scale(1.03);
 }

@@ -31,7 +31,7 @@ export default function PathSelector({ paths, recommended }: Props) {
             textAlign: 'center',
             mb: 4,
             fontWeight: 800,
-            color: 'var(--color-primario)',
+            color: 'var(--color-white)',
             px: 2,
             py: 1,
             borderRadius: 2,
@@ -59,8 +59,8 @@ export default function PathSelector({ paths, recommended }: Props) {
               textAlign: 'center',
               maxWidth: 320,
               mx: 'auto',
-              backgroundColor: recommended === p.title ? 'var(--color-texto)' : 'var(--color-primario)',
-              color: recommended === p.title ? 'var(--color-primario)' : 'var(--text-color)',
+              backgroundColor: recommended === p.title ? 'var(--color-text)' : 'var(--color-primario)',
+              color: recommended === p.title ? 'var(--color-white)' : 'var(--color-text)',
               boxShadow: '0 4px 10px rgba(0,0,0,0.1)',
               p: 2,
               transition: '0.3s',
@@ -76,9 +76,9 @@ export default function PathSelector({ paths, recommended }: Props) {
                   <Button className="shadow-inset-center"
                     variant={p.style === 'outline' ? 'outlined' : 'contained'}
                     sx={{
-                      backgroundColor: p.style === 'primary' ? 'var(--color-verde-oscuro)' : 'var(--color-texto)',
-                      color: 'var(--color-primario)',
-                      borderColor: 'var(--color-primario)',
+                      backgroundColor: p.style === 'var(--light-gray)' ? 'var(--color-verde-oscuro)' : 'var(--color-texto)',
+                      color: 'var(--color-white)',
+                      borderColor: 'var(--color-white)',
                       '&:hover': { backgroundColor: 'var(--color-secundario)', color: 'var(--color-primario)' },
                     }}
                   >

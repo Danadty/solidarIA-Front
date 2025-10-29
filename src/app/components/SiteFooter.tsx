@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function SiteFooter() {
   return (
-    <Box sx={{ backgroundColor: 'var(--color-primario)', borderTop: '1px solid rgba(0,0,0,0.08)', mt: 0, color: 'var(--color-verde-oscuro)' }}>
+    <Box sx={{ backgroundColor: 'var(--color-white)', borderTop: '1px solid rgba(0,0,0,0.08)', mt: 0, color: 'var(--color-verde-oscuro)' }}>
       <Box sx={{ px: { xs: 3, md: 8 }, py: 2 }}>
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 2 }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, flexBasis: { xs: '100%', md: '30%' } }}>

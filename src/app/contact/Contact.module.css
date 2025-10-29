@@ -1,5 +1,5 @@
 .container {
-  background: #faf9f6;
+  background-color: var(--light-gray);
   color: #2d3a32;
   min-height: 100vh;
   display: flex;

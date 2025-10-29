@@ -16,12 +16,12 @@ export default function Hero() {
           </Typography>
           <Box sx={{ display: 'flex', gap: 1.5, flexWrap: 'wrap' }}>
             <Link href="/ongs">
-              <Button className="shadow-inset-center" variant="contained" sx={{ background: 'var(--color-verde-oscuro)', color: 'var(--color-primario)', '&:hover': { background: 'var(--color-secundario)' } }}>
+              <Button className="shadow-inset-center" variant="contained" sx={{ background: 'var(--color-verde-oscuro)', color: 'var(--color-white)', '&:hover': { background: 'var(--color-secundario)' } }}>
                 Descubrir ONG
               </Button>
             </Link>
             <Link href="/register-profile-user">
-              <Button className="shadow-inset-center" variant="contained" sx={{ background: 'var(--color-texto)', color: 'var(--color-primario)', '&:hover': { background: 'var(--color-secundario)' } }}>
+              <Button className="shadow-inset-center" variant="contained" sx={{ background: 'var(--color-fondo)', color: 'var(--color-white)', '&:hover': { background: 'var(--color-secundario)' } }}>
                 Quiero ayudar
               </Button>
             </Link>
