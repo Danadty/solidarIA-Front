@@ -49,7 +49,7 @@ export default function HomePage() {
           descripcion: f.description ?? f.descripcion ?? '',
           imagen: f.logo_url ?? f.logo ?? f.imageUrl ?? '/vercel.svg',
         }));
-        const mappedVols = campaignsAll.slice(0, 5).map((c: any, idx: number) => ({
+        const mappedVols = campaignsAll.slice(0, 6).map((c: any, idx: number) => ({
           id: c.id ?? c._id ?? idx,
           titulo: c.title ?? c.titulo ?? c.name ?? 'Campaña',
           descripcion: c.description ?? c.descripcion ?? '',
