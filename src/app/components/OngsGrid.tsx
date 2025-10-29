@@ -27,8 +27,13 @@ export default function OngsGrid({ ongs }: Props) {
                                 : ong.descripcion}</Typography>
             </CardContent>
             <CardActions sx={{ px: 2, pb: 2, gap: 1 }}>
+<<<<<<< HEAD
               <Link href="/ongs"><Button className="shadow-inset-center" size="small" variant="contained" sx={{ background: 'var(--color-secundario)', color: 'var(--color-primario)', '&:hover': { background: 'var(--color-verde-oscuro)' } }}>Ver más</Button></Link>
               <Link href="/volunteers"><Button className="shadow-inset-center" size="small" variant="outlined" sx={{ borderColor: 'var(--color-text)', color: 'var(--color-text)', '&:hover': { borderColor: 'var(--color-secundario)', color: 'var(--color-secundario)' } }}>Donar</Button></Link>
+=======
+              <Link href="/ongs"><Button className="shadow-inset-center" size="small" variant="contained" sx={{ backgroundColor: 'var(--color-secundario)', color: 'var(--color-primario)', '&:hover': { backgroundColor: 'var(--color-verde-oscuro)' } }}>Ver más</Button></Link>
+              <Link href="/volunteers"><Button className="shadow-inset-center" size="small" variant="outlined" sx={{ borderColor: 'var(--color-secundario)', color: 'var(--color-secundario)', borderWidth: 2, '&:hover': { borderColor: 'var(--color-verde-oscuro)', color: 'var(--color-verde-oscuro)' } }}>Donar</Button></Link>
+>>>>>>> feature/homepage
             </CardActions>
           </Card>
         ))}

@@ -16,12 +16,14 @@
   --color-2: #497568;
   --color-3: #699689;
   --color-4: #f8f9fa;
+<<<<<<< HEAD
 
   --color-5: #334c47; 
 
+=======
+  --color-5: #334c47;
+>>>>>>> feature/homepage
 }
-
-
 
 /* reset básico / tipografía (ajusta a tu preferencia) */
 html,
