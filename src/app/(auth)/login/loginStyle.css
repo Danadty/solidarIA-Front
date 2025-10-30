@@ -1,0 +1,66 @@
+/* 🎨 Mejora visual de los inputs del login */
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.85rem 1rem;
+  margin-top: 0.4rem;
+  border: 1px solid #d3d3d3;
+  border-radius: 10px;
+  background: #fafafa;
+  font-size: 1rem;
+  color: #333;
+  transition: all 0.25s ease;
+}
+
+/* ✨ Sombra y borde al enfocar */
+input[type="email"]:focus,
+input[type="password"]:focus {
+  outline: none;
+  border-color: #48b2ff;
+  background: #ffffff;
+  box-shadow: 0 0 8px rgba(72, 178, 255, 0.4);
+}
+
+/* 🔴 En hover */
+input[type="email"]:hover,
+input[type="password"]:hover {
+  border-color: #7dcfff;
+}
+
+/* 🧾 Label */
+label {
+  font-weight: 600;
+  color: #3b3b3b;
+  margin-bottom: 0.3rem;
+  display: inline-block;
+}
+
+.caja {
+  width: calc(100% + 4.4rem); /* ancho del form + padding izquierdo y derecho */
+  margin: -2.2rem 0 0 -2.2rem;   /* -padding arriba para tocar el borde superior */
+  /* padding: 1rem;              padding interno */
+  background-color: var(--color-verde-oscuro);
+  color: var(--color-primario);
+  border-radius: 10px 10px 0 0; /* solo redondea arriba si querés */
+
+  h1{
+      color: var(--color-primario);
+
+  }
+}
+
+
+
+
+/* Triángulo decorativo abajo a la derecha */
+.caja::after {
+  content: "";
+  position: absolute;
+  right: 1.5rem; /* espacio desde el borde derecho */
+  width: 0;
+  height: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-top: 15px solid var(--color-verde-oscuro); /* color del triángulo */
+}

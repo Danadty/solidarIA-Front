@@ -1,0 +1,86 @@
+/* 🎨 Inputs del formulario de fundación: mismo estilo que login */
+input[type="text"],
+input[type="tel"],
+input[type="email"],
+textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.85rem 1rem;
+  margin-top: 0.4rem;
+  border: 1px solid #d3d3d3;
+  border-radius: 10px;
+  background: #fafafa;
+  font-size: 1rem;
+  color: #333;
+  transition: all 0.25s ease;
+  resize: none; /* evita que textarea se deforme */
+  font-family: inherit;
+}
+
+/* ✨ Focus igual */
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: #48b2ff;
+  background: #ffffff;
+  box-shadow: 0 0 8px rgba(72, 178, 255, 0.4);
+}
+
+/* 🔴 Hover igual */
+input:hover,
+textarea:hover {
+  border-color: #7dcfff;
+}
+
+/* 🔹 Botón igual */
+button {
+  width: 100%;
+  background-color: var(--color-verde-oscuro);
+  color: var(--color-primario);
+  border: none;
+  border-radius: 10px;
+  padding: 0.9rem;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.25s ease, transform 0.1s ease;
+}
+
+button:hover {
+  background-color: #3a9e4b;
+  transform: scale(1.02);
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* 🧾 Etiquetas */
+label {
+  font-weight: 600;
+  color: #3b3b3b;
+  margin-bottom: 0.3rem;
+  display: inline-block;
+}
+
+/* 💚 Caja superior igual que login */
+.caja {
+  width: calc(100% + 4.4rem);
+  margin: -2.2rem 0 1.2rem -2.2rem;
+  background-color: var(--color-verde-oscuro);
+  color: var(--color-primario);
+  border-radius: 10px 10px 0 0;
+  position: relative;
+}
+
+.caja::after {
+  content: "";
+  position: absolute;
+  right: 1.5rem;
+  width: 0;
+  height: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-top: 15px solid var(--color-verde-oscuro);
+}

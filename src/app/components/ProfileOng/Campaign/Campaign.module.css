@@ -1,0 +1,17 @@
+.campaingCard{
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    list-style: none;
+}
+
+
+
+.campaingCard img {
+    width: 10rem; /* ancho fijo */
+    height: 5rem; /* alto fijo */
+    border-radius: 4px; /* opcional, bordes redondeados */
+    object-fit: cover; /* asegura que la imagen se ajuste bien */
+}
