@@ -76,7 +76,7 @@
   display: flex;
   gap: 0.75rem;
   flex-shrink: 0;
-  padding-bottom: 0.5rem; /* Alinea con el nombre */
+  padding-bottom: 0.5rem; 
 }
 
 /* --- Botones --- */
@@ -89,6 +89,7 @@
   border: 2px solid var(--color-secundario);
   cursor: pointer;
   transition: all 0.3s ease;
+  text-decoration: none;
 }
 
 .profile-button-primary {
@@ -96,16 +97,16 @@
   color: #fff;
 }
 .profile-button-primary:hover {
-  background-color: var(--primary-dark);
-  border-color: var(--primary-dark);
+  background-color: var(--color-fondo);
 }
 
 .profile-button-secondary {
   background-color: #fff;
   color: var(--color-secundario);
+  border-color: var(--color-fondo);
 }
 .profile-button-secondary:hover {
-  background-color: var(--color-secundario);
+  background-color: var(--color-fondo);
   color: #fff;
 }
 

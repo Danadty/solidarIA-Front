@@ -5,13 +5,23 @@
     margin-bottom: 16px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     list-style: none;
+    display: flex;
+    gap: 1rem;
 }
 
+.contentImgCam {
+    width: 40%;
+}
 
+.contentInfoCam {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+}
 
 .campaingCard img {
-    width: 10rem; /* ancho fijo */
-    height: 5rem; /* alto fijo */
+    width: 100%; /* ancho fijo */
+    height: 8rem; /* alto fijo */
     border-radius: 4px; /* opcional, bordes redondeados */
     object-fit: cover; /* asegura que la imagen se ajuste bien */
 }

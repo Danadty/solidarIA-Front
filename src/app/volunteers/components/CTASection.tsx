@@ -3,7 +3,7 @@ import styles from "../voluntariado.module.css";
 
 export default function CTASection() {
   return (
-    <section className={styles.ctaSection}>
+    <section className={styles.ctaSection} id="Sumarme">
       <div className={styles.ctaContent}>
         <h2>¿Querés ser voluntario?</h2>
         <p>Unite a nuestra comunidad y ayudá a transformar vidas</p>

@@ -57,11 +57,13 @@ const CampaignComponent = ({ ongId }: CampaignComponentProps) => {
                 <ul>
                     {campaigns.map((campaign: Campaign) => (
                         <li key={campaign.id} className={styles.campaingCard}>
-                            <div>
-                                <img src={campaign.imageUrl} alt={campaign.description} />
+                            <div className={styles.contentImgCam}>
+                                <img src={campaign.imageUrl} alt={campaign.title} />
                             </div>
-                            <h3>{campaign.title}</h3>
-                            <p>{campaign.description}</p>
+                            <div className={styles.contentInfoCam}>
+                                <h3>{campaign.title}</h3>
+                                <p>{campaign.description}</p>
+                            </div>
                         </li>
                     ))}
                 </ul>
