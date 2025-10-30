@@ -1,6 +1,7 @@
 "use client"
-import { useState } from "react";
+import { useState} from "react";
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
+import { PostMp } from "@/lib/data";
 import "./PasarelaPagos.css";
 
 interface PasarelaPagosProps{
@@ -15,72 +16,79 @@ interface PasarelaPagosProps{
 
 initMercadoPago(process.env.NEXT_PUBLIC_MERCADOPAGO_PUBLIC_KEY || "");
 
-const PasarelaPagos = ({ ongId, ongName, contact_email, contact_phone }: PasarelaPagosProps) => {
+const PasarelaPagos = ({ 
+    ongId, 
+    ongName, 
+    contact_email, 
+    contact_phone, 
+    monto: initialMonto,
+}: PasarelaPagosProps) => {
 
 //Llamando a la API para crear la preferencia de pago
-    const [preferenceId, setPreferenceId] = useState<string | null>(null);
-    const [paymentUrl, setPaymentUrl] = useState('');
-    const [ong, setOng] = useState(ongName);
+    const [preferenceId, setPreferenceId] = useState<string | null>(null);;
     const [monto, setMonto] = useState(100);
+    const [paymentUrl, setPaymentUrl] = useState('');
+    //  const [ong, setOng] = useState(ongs[0]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
     console.log("Componente PasarelaPagos se ha renderizado.");
 
 const createPreference = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log("Botón presionado. Iniciando creación de preferencia...");
+        setError(null);
+        if (!ongId) {
+            console.error("No Id de ong disponible");
+            setError("ID de ONG no disponible");
+            return;
+        }
 
-        // Limpiamos el ID viejo para que desaparezca el botón anterior si se genera uno nuevo
         setPreferenceId(null);
-        
-        try {           
-            
+        setLoading(true);
+
+        try {
             const requestBody = {
                 items: [
                     {
                         id: "donation",
-                        title: `Donación a: ${ongName ?? ong}`,
+                        title: `Donación a: ${ongName ?? "Fundación"}`,
                         quantity: 1,
                         unit_price: Number(monto),
                         id_ong: ongId ?? null
                     }
                 ],
-                // enviar metadata para que el backend tenga todos los datos relevantes
                 metadata: {
-                  foundationId: ongId ?? null,
-                  foundationName: ongName ?? ong,
-                  contact_email: contact_email ?? null,
-                  contact_phone: contact_phone ?? null
+                    foundationId: ongId ?? null,
+                    foundationName: ongName ?? null,
+                    contact_email: contact_email ?? null,
+                    contact_phone: contact_phone ?? null
                 }
             };
 
             console.log("Enviando al backend:", requestBody);
 
-            const response = await fetch('/api/create-preference', {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(requestBody)
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                console.log("Respuesta del backend:", data);
-               
-
-                setPreferenceId(data.id)
-                setPaymentUrl(data.init_point);
-              
-            } else{
-                console.error("Error en la respuesta del servidor:", response.statusText);
+            // PostMp ahora hace POST relativo a /api/{endpoint}
+            const data = await PostMp(requestBody, "mercadopago/create-preference");
+            console.log("Respuesta del backend:", data);
+            
+            if (data?.success && data.data) {
+                const pref = data.data;
+                setPreferenceId(pref.id ?? null);
+                setPaymentUrl(pref.init_point ?? "");
+            } else {
+                setError("Respuesta inválida del servidor");
+                console.error("Error en la respuesta del servidor:", data);
             }
 
-        } catch (error) {
-            console.error("Error creating preference:", error);
+            
+            } catch (error: any) {
+                setError(error?.message || "Error al crear preferencia");
+            } finally {
+                setLoading(false);
         }
-    
     }
-    
-    
-    return (
+
+return (
             <div className="profile-section">
                 <h2 className="section-title">Donar a {ongName}</h2>
                 <div className="pasarela-form">
@@ -102,22 +110,32 @@ const createPreference = async (e: React.FormEvent) => {
                             </div>
                             
                             
-                        <button className="pasarela-button" type="submit">
-                            Clic aqui para donar {monto} ARS
+                        <button className="pasarela-button" type="submit" disabled={loading}>
+                            {loading ? "Procesando..." : `Clic aqui para donar ${monto} ARS`}
                         </button>
-                        {preferenceId &&
+                        
+                        {error && <p className="pasarela-error" style={{ color: "red", marginTop: 8 }}>{error}</p>}
+
+                        {preferenceId ? (
                             <div style={{ width: '100%', marginTop: 18 }}>
                             <Wallet 
                                 
-                                initialization={{ preferenceId }}
+                                initialization={{ preferenceId: preferenceId || '' }}
                             
                             />
+                            </div> 
+                            ) : paymentUrl ? (
+                            <div style={{ marginTop: 12 }}>
+                                <a href={paymentUrl} target="_blank" rel="noreferrer">
+                                    <button type="button" className="pasarela-button">Ir a pagar</button>
+                                </a>
                             </div>
-                        }
+                        ) : null}
                     </form>
                 </div>
             </div>   
     )
-}
+};
+
 
 export default PasarelaPagos;

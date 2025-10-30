@@ -240,8 +240,9 @@ const OngProfile: React.FC<OngProfileProps> = ({
               ongName={name} 
               contact_email={contact_email} 
               contact_phone={contact_phone} 
-              
+              monto={1000}
             />
+            
              </div>
           {/* Sección: Impacto Social */}
           <div className="profile-section">

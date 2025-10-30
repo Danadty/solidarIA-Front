@@ -1,3 +1,6 @@
+
+import { } from 'next/server';
+
 // --- Llamado a la api---
 
 const fechtData = async (endpoint: string) => {
@@ -51,4 +54,29 @@ const fechtDataWithToken = async (endpoint: string, token: string) => {
 }
 
 
-export { fechtData, fechtDataWithToken };
+//POST MP
+
+const PostMp = async (body: any, endpoint: string) => {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/${endpoint}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    });
+
+    const data = await res.json().catch(() => null);
+    if (!res.ok) {
+      // retornar error para que el llamador lo maneje
+      throw new Error(data?.error || `Error ${res.status}`);
+    }
+    return data;
+  } catch (err: any) {
+    // relanzar para manejo en UI
+    throw new Error(err?.message || 'Error en PostMp');
+  }
+}
+
+
+export { fechtData, fechtDataWithToken, PostMp };
