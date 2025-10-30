@@ -74,13 +74,13 @@ const RenderOngs = ({ setFoundations, onTotalChange }: RenderOngsProps) => {
                                 <button
                                     className={styles.cardOngButton}>Ver Perfil</button>
                             </Link>
-                            <Link
+                            {/* <Link
                                 href={`/foundation/${ong.id}`}
                             >
                                 <button>
                                     Donar
                                 </button>
-                            </Link>
+                            </Link> */}
                         </div>
                     ))
                 )}
