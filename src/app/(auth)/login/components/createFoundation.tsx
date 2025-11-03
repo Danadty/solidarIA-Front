@@ -24,7 +24,7 @@ export default function CreateFoundationForm({ token, userId, onCreated }: Props
     setError('');
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/foundation`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/foundation`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

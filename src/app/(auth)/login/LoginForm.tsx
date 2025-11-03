@@ -32,11 +32,15 @@ export default function LoginForm() {
         throw new Error("No se recibió el token del servidor");
       }
 
-      const { token, email: userEmail, role } = data;
+      const { token, email: userEmail, role, id: userIdFromBackend } = data;
+
+      setToken(token);
+      setUserId(userIdFromBackend);  // 👈 importante
 
       localStorage.setItem("token", token);
       localStorage.setItem("email", userEmail);
       localStorage.setItem("role", role);
+      localStorage.setItem("userId", userIdFromBackend);
 
       // ✅ Aquí verificamos si tiene fundación
       if (role === "FOUNDATION") {
