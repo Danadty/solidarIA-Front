@@ -3,7 +3,7 @@ import API from './client';
 export const UserProfileAPI = {
   create: (data: any) => API.post('/user-profile', data),
   getAll: () => API.get('/user-profile'),
-  getByUserId: (id: string) => API.get(`/user-profile/${id}`),
+  getByUserId: (id: string) => API.get(`/user-profile/public/${id}`),
   uploadPhoto: (id: string, file: File) => {
     const fd = new FormData();
     fd.append('file', file);
