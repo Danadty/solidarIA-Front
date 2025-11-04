@@ -52,9 +52,7 @@ export default function VoluntariadoPage() {
     if (searchTerm) {
       const searchLower = searchTerm.toLowerCase();
       filtered = filtered.filter(volunteer =>
-        // Búsqueda por DIRECCIÓN (ubicación)
         volunteer.address?.toLowerCase().includes(searchLower) ||
-        // Búsqueda por DESCRIPCIÓN (intereses)
         volunteer.description?.toLowerCase().includes(searchLower)
       );
     }
@@ -62,30 +60,24 @@ export default function VoluntariadoPage() {
     setFilteredVolunteers(filtered);
   };
 
-  if (loading) {
-    return (
-      <>
-        <LoadingState />
-      </>
-    );
-  }
-
   return (
-    <>      
-      <main className={styles.container}>
-        <HeroSection />
-        
-        <FiltersSection
-          searchTerm={searchTerm}
-          onSearchChange={setSearchTerm}
-          resultsCount={filteredVolunteers.length}
-          totalCount={volunteers.length}
-        />
+    <main className={styles.container}>
+      <HeroSection />
 
+      <FiltersSection
+        searchTerm={searchTerm}
+        onSearchChange={setSearchTerm}
+        resultsCount={filteredVolunteers.length}
+        totalCount={volunteers.length}
+      />
+
+      {loading ? (
+        <LoadingState />
+      ) : (
         <VolunteersGrid volunteers={filteredVolunteers} />
+      )}
 
-        <CTASection />
-      </main>
-    </>
+      <CTASection />
+    </main>
   );
 }

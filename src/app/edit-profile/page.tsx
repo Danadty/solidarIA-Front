@@ -1,6 +1,8 @@
 "use client";
 import { useEffect, useState, ChangeEvent, FormEvent } from "react";
 import "./styleProfile.css";
+
+import "./styleProfileFeedback.css";
 import { get } from "http";
 import { useRouter } from "next/navigation";
 interface FoundationData {
@@ -453,30 +455,41 @@ function UserProfileEditForm() {
   const [userProfileId, setUserProfileId] = useState<string | null>(null);
   const [loadingRole, setLoadingRole] = useState(true);
   const [role, setRole] = useState<string | null>(null);
-
   const [photoFile, setPhotoFile] = useState<File | null>(null);
+  
+  const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
+  const [uploadingPhoto, setUploadingPhoto] = useState(false);
+
+  const showMessage = (type: 'success' | 'error', text: string) => {
+    setMessage({ type, text });
+    setTimeout(() => setMessage(null), 4000);
+  };
+
   useEffect(() => {
     const storedRole = localStorage.getItem("role");
     setRole(storedRole);
     setLoadingRole(false);
   }, []);
+
   useEffect(() => {
     const fetchData = async () => {
       const token = localStorage.getItem("token");
       if (!token) return;
-      // 🔹 Decodificar el token para obtener userId
+      
       const payloadBase64 = token.split(".")[1];
       const decoded = JSON.parse(atob(payloadBase64));
-      const userId = decoded.id; // 👈 según tu backend, puede ser "sub" o "id"
+      const userId = decoded.id;
 
       try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/user-profile`, {
           headers: { Authorization: `Bearer ${token}` },
         });
+        
+        if (!res.ok) throw new Error("Error al cargar perfil");
+        
         const json = await res.json();
         const profiles = json.data || [];
 
-        // 🔹 Buscar el perfil que pertenece a este usuario
         const myProfile = profiles.find((p: any) => p.userId === userId);
         if (myProfile) {
           setUserProfileId(myProfile.id);
@@ -488,21 +501,25 @@ function UserProfileEditForm() {
           });
         } else {
           console.log("Usuario no tiene perfil creado aún");
-          setData({ description: "", phone: "", address: "" });
+          setData({ description: "", phone: "", address: "", photoUrl: "" });
         }
       } catch (err) {
         console.error("Error al obtener perfiles:", err);
+        showMessage('error', "Error al cargar el perfil");
       }
     };
 
     fetchData();
-    // const interval = setInterval(fetchData, 5000);
-    // return () => clearInterval(interval);
   }, []);
-  // 🧠 Subida de foto de perfil
-  const handlePhotoUpload = async () => {
-    if (!photoFile || !userProfileId) return alert("Seleccioná una imagen primero");
 
+  const handlePhotoUpload = async () => {
+    if (!photoFile || !userProfileId) {
+      showMessage('error', "Seleccioná una imagen primero");
+      return;
+    }
+
+    setUploadingPhoto(true);
+    
     try {
       const token = localStorage.getItem("token");
       if (!token) throw new Error("No hay token");
@@ -520,25 +537,42 @@ function UserProfileEditForm() {
       );
 
       if (!uploadRes.ok) throw new Error("Error al subir la foto");
-      alert("✅ Foto subida correctamente");
-
-      // Refrescar perfil para mostrar la nueva foto
+      
       const updatedRes = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/user-profile`, {
         headers: { Authorization: `Bearer ${token}` },
       });
+      
+      if (!updatedRes.ok) throw new Error("Error al actualizar perfil");
+      
       const updatedData = await updatedRes.json();
       const updatedProfile = updatedData.data.find((p: any) => p.id === userProfileId);
-      if (updatedProfile) setData(updatedProfile);
-      setPhotoFile(null);
-    } catch (err) {
+      
+      if (updatedProfile) {
+        setData(prev => ({
+          ...prev,
+          photoUrl: updatedProfile.photoUrl
+        }));
+        setPhotoFile(null);
+        showMessage('success', "Foto de perfil actualizada correctamente");
+        
+        const fileInput = document.getElementById("photoInput") as HTMLInputElement;
+        if (fileInput) fileInput.value = "";
+      }
+    } catch (err: any) {
       console.error(err);
-      alert("Error al subir la foto ❌");
+      showMessage('error', "Error al subir la foto. Intenta nuevamente.");
+    } finally {
+      setUploadingPhoto(false);
     }
   };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (!data || !userProfileId) return;
+    if (!data || !userProfileId) {
+      showMessage('error', "Datos incompletos");
+      return;
+    }
+    
     setLoading(true);
 
     try {
@@ -553,37 +587,67 @@ function UserProfileEditForm() {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify(data),
+          body: JSON.stringify({
+            description: data.description,
+            phone: data.phone,
+            address: data.address,
+          }),
         }
       );
 
-      if (!res.ok) throw new Error("Error al actualizar perfil");
-      alert("Perfil de usuario actualizado!");
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.message || "Error al actualizar perfil");
+      }
+
+      showMessage('success', "Perfil actualizado correctamente");
+      
     } catch (err: any) {
-      alert(err.message || "Error al actualizar perfil");
+      console.error("Error updating profile:", err);
+      showMessage('error', "Error al actualizar el perfil. Intenta nuevamente.");
     } finally {
       setLoading(false);
     }
   };
-  if (loadingRole) return <div className="loadingContainer">
-                        <div className="spinner"></div>
-                        <p>Cargando...</p>
-                    </div>;
 
-  if (!data) return <div className="loadingContainer">
-                        <div className="spinner"></div>
-                        <p>Cargando perfil de usuario...</p>
-                    </div>;
+  if (loadingRole) return (
+    <div className="loadingContainer">
+      <div className="spinner"></div>
+      <p>Cargando...</p>
+    </div>
+  );
+
+  if (!data) return (
+    <div className="loadingContainer">
+      <div className="spinner"></div>
+      <p>Cargando perfil de usuario...</p>
+    </div>
+  );
 
   return (
     <div className="container">
+      {message && (
+        <div className={`feedback-message ${message.type}`}>
+          <div className="feedback-content">
+            <span className="feedback-icon">
+              {message.type === 'success' ? '✓' : '✕'}
+            </span>
+            <span className="feedback-text">{message.text}</span>
+          </div>
+          <button 
+            className="feedback-close"
+            onClick={() => setMessage(null)}
+          >
+            ×
+          </button>
+        </div>
+      )}
 
-    <form onSubmit={handleSubmit} className="form">
-      <section className="caja">
+      <form onSubmit={handleSubmit} className="form">
+        <section className="caja">
+          <h1>Editar Perfil de Usuario</h1>
+        </section>
 
-      <h1>Editar Perfil de Usuario</h1>
-      </section>
-      {/* --- Imagen de perfil --- */}
         <div className="logo-container">
           {data.photoUrl && (
             <img
@@ -593,11 +657,28 @@ function UserProfileEditForm() {
             />
           )}
           <div className="logo-buttons">
-            <button type="button" onClick={() => document.getElementById("photoInput")?.click()}>
+            <button 
+              type="button" 
+              onClick={() => document.getElementById("photoInput")?.click()}
+              disabled={uploadingPhoto}
+            >
               {photoFile ? "Cambiar foto" : "Subir foto"}
             </button>
             {photoFile && (
-              <button type="button" onClick={handlePhotoUpload}>Guardar foto</button>
+              <button 
+                type="button" 
+                onClick={handlePhotoUpload}
+                disabled={uploadingPhoto}
+              >
+                {uploadingPhoto ? (
+                  <>
+                    <div className="button-spinner"></div>
+                    Subiendo...
+                  </>
+                ) : (
+                  "Guardar foto"
+                )}
+              </button>
             )}
           </div>
           <input
@@ -607,30 +688,45 @@ function UserProfileEditForm() {
             onChange={(e: ChangeEvent<HTMLInputElement>) =>
               setPhotoFile(e.target.files?.[0] || null)
             }
+            accept="image/*"
           />
+          
         </div>
 
-      <input
-        className="input"
-        value={data.description}
-        onChange={(e) => setData({ ...data, description: e.target.value })}
-        placeholder="Descripción"
-      />
-      <input
-        className="input"
-        value={data.phone}
-        onChange={(e) => setData({ ...data, phone: e.target.value })}
-        placeholder="Teléfono"
-      />
-      <input
-        className="input"
-        value={data.address}
-        onChange={(e) => setData({ ...data, address: e.target.value })}
-        placeholder="Dirección"
-      />
-      <button className="button" type="submit" disabled={loading}>{loading ? "Guardando..." : "Guardar"}</button>
-    </form>
-</div>
+        <input
+          className="input"
+          value={data.description}
+          onChange={(e) => setData({ ...data, description: e.target.value })}
+          placeholder="Descripción"
+        />
+        <input
+          className="input"
+          value={data.phone}
+          onChange={(e) => setData({ ...data, phone: e.target.value })}
+          placeholder="Teléfono"
+        />
+        <input
+          className="input"
+          value={data.address}
+          onChange={(e) => setData({ ...data, address: e.target.value })}
+          placeholder="Dirección"
+        />
+        <button 
+          className="button" 
+          type="submit" 
+          disabled={loading}
+        >
+          {loading ? (
+            <>
+              <div className="button-spinner"></div>
+              Guardando...
+            </>
+          ) : (
+            "Guardar"
+          )}
+        </button>
+      </form>
+    </div>
   );
 }
 

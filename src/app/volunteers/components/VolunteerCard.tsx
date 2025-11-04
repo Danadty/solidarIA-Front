@@ -45,7 +45,7 @@ export default function VolunteerCard({
 
       <div className={styles.cardBody}>
         <p className={styles.description}>
-          {volunteer.description}
+          {volunteer.description ? volunteer.description : "No especificado."}
         </p>
       </div>
 

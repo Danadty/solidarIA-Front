@@ -30,7 +30,7 @@ export default function FiltersSection({
           />
           <span className={styles.searchIcon}>:)</span>
         </div>
-        
+        {/* 
         <select 
           value={selectedCategory}
           onChange={(e) => onCategoryChange(e.target.value)}
@@ -43,6 +43,7 @@ export default function FiltersSection({
           <option value="comunidad">Comunidad</option>
           <option value="animales">Animales</option>
         </select>
+        */}
       </div>
 
       <div className={styles.resultsInfo}>

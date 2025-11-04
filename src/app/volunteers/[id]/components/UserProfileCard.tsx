@@ -84,7 +84,7 @@ export default function UserProfileCard({ profile }: UserProfileCardProps) {
             }}>
               "{description}"
             </Typography>
-          ) : null
+          ) : "No especificado."
         }
         sx={{
           padding: 3,
@@ -93,21 +93,23 @@ export default function UserProfileCard({ profile }: UserProfileCardProps) {
       />
 
       <CardContent sx={{ padding: 3, paddingTop: 0 }}>
-        <Grid container spacing={3}>
+        <Grid container spacing={3} sx={{alignItems:'stretch'}}>
           {/* Teléfono */}
-          {phone && (
+          {phone ? (
             <Grid sx={{
               flex: { xs: '0 0 100%', sm: '0 0 50%' },
               maxWidth: { xs: '100%', sm: '50%' },
               display: 'flex',
-              justifyContent: 'center',
+              justifyContent: 'flex-start',
+              alignItems: 'center'
             }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, height: '100%' }}>
                 <PhoneIcon sx={{
                   color: 'var(--color-2)',
-                  fontSize: 28
+                  fontSize: 28,
+                  flexShrink: 0,
                 }} />
-                <Box>
+                <Box sx={{ flex: 1, minWidth: 0 }}>
                   <Typography variant="body1" fontWeight="medium" sx={{ color: 'var(--color-1)' }}>
                     Teléfono
                   </Typography>
@@ -117,22 +119,48 @@ export default function UserProfileCard({ profile }: UserProfileCardProps) {
                 </Box>
               </Box>
             </Grid>
-          )}
+          ):
+          <Grid sx={{
+            flex: { xs: '0 0 100%', sm: '0 0 50%' },
+            maxWidth: { xs: '100%', sm: '50%' },
+            display: 'flex',
+            justifyContent: 'flex-start',
+            alignItems: 'center'
+          }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, height: '100%' }}>
+              <PhoneIcon sx={{
+                color: 'var(--color-2)',
+                fontSize: 28,
+                flexShrink: 0,
+              }} />
+              <Box sx={{ flex: 1, minWidth: 0 }}>
+                <Typography variant="body1" fontWeight="medium" sx={{ color: 'var(--color-1)' }}>
+                  Teléfono
+                </Typography>
+                <Typography variant="body2" sx={{ color: 'var(--color-1)', opacity: 0.8 }}>
+                  No especificado
+                </Typography>
+              </Box>
+            </Box>
+          </Grid>
+          }
 
           {/* Email */}
           {userEmail && (
             <Grid sx={{
-              flex: { xs: '0 0 100%', sm: '0 0 50%' },
-              maxWidth: { xs: '100%', sm: '50%' },
+              flex: { xs: '0 0 100%', sm: '0 0 25%' },
+              maxWidth: { xs: '100%', sm: '25%' },
               display: 'flex',
-              justifyContent: 'center',
+              justifyContent: 'flex-start',
+              alignItems: 'center'
             }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, height: '100%' }}>
                 <EmailIcon sx={{
                   color: 'var(--color-2)',
-                  fontSize: 28
+                  fontSize: 28,
+                  flexShrink: 0
                 }} />
-                <Box>
+                <Box sx={{ flex: 1, minWidth: 0 }}>
                   <Typography variant="body1" fontWeight="medium" sx={{ color: 'var(--color-1)' }}>
                     Email
                   </Typography>
@@ -145,19 +173,21 @@ export default function UserProfileCard({ profile }: UserProfileCardProps) {
           )}
 
           {/* Dirección */}
-          {address && (
+          {address ? (
             <Grid sx={{
               flex: { xs: '0 0 100%', sm: '0 0 50%' },
               maxWidth: { xs: '100%', sm: '50%' },
               display: 'flex',
-              justifyContent: 'center',
+              justifyContent: 'flex-start',
+              alignItems: 'center'
             }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, height: '100%' }}>
                 <LocationOnIcon sx={{
                   color: 'var(--color-2)',
-                  fontSize: 28
+                  fontSize: 28,
+                  flexShrink: 0
                 }} />
-                <Box>
+                <Box sx={{ flex: 1, minWidth: 0 }}>
                   <Typography variant="body1" fontWeight="medium" sx={{ color: 'var(--color-1)' }}>
                     Ubicación
                   </Typography>
@@ -167,21 +197,46 @@ export default function UserProfileCard({ profile }: UserProfileCardProps) {
                 </Box>
               </Box>
             </Grid>
-          )}
-
-          {/* Fecha de registro */}
+          ):
           <Grid sx={{
             flex: { xs: '0 0 100%', sm: '0 0 50%' },
             maxWidth: { xs: '100%', sm: '50%' },
             display: 'flex',
-            justifyContent: 'center',
+            justifyContent: 'flex-start',
+            alignItems: 'center'
+          }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, height: '100%' }}>
+              <LocationOnIcon sx={{
+                color: 'var(--color-2)',
+                fontSize: 28,
+                flexShrink: 0
+              }} />
+              <Box sx={{ flex: 1, minWidth: 0 }}>
+                <Typography variant="body1" fontWeight="medium" sx={{ color: 'var(--color-1)' }}>
+                  Ubicación
+                </Typography>
+                <Typography variant="body2" sx={{ color: 'var(--color-1)', opacity: 0.8 }}>
+                  No especificado
+                </Typography>
+              </Box>
+            </Box>
+          </Grid>}
+
+          {/* Fecha de registro */}
+          <Grid sx={{
+            flex: { xs: '0 0 100%', sm: '0 0 25%' },
+            maxWidth: { xs: '100%', sm: '25%' },
+            display: 'flex',
+            justifyContent: 'flex-start',
+            alignItems: 'center'
           }}>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, height: '100%' }}>
               <CalendarTodayIcon sx={{
                 color: 'var(--color-2)',
-                fontSize: 28
+                fontSize: 28,
+                flexShrink: 0
               }} />
-              <Box>
+              <Box sx={{ flex: 1, minWidth: 0 }}>
                 <Typography variant="body1" fontWeight="medium" sx={{ color: 'var(--color-1)' }}>
                   Se unió
                 </Typography>

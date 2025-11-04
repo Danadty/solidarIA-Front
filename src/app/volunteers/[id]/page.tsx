@@ -87,7 +87,7 @@ export default function VolunteerProfilePage() {
     <div className={styles.container}>
       <UserProfileCard profile={userProfile} />
       
-      <h2 className={styles.title}>Ultimas actividades</h2>
+      <h2 className={styles.title}>Últimas actividades</h2>
       
       {userProfile.userId && (
         <UserActivitiesSection userId={userProfile.userId} />
@@ -99,7 +99,7 @@ export default function VolunteerProfilePage() {
           marginBottom: '1rem',
           
         }}>
-          Ultimas donaciones
+          Últimas donaciones
         </h2>
         {userProfile.userId && (
           <DonationsTable userId={userProfile.userId} />

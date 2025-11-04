@@ -162,14 +162,14 @@ export default function HomePage() {
       description: 'Completá tu perfil y empezá a participar activamente. Tus acciones y donaciones serán registradas.',
       action: 'Extender mi perfil',
       style: 'primary',
-      href: '/register-profile-user',
+      href: '/register',
     },
     {
       title: 'Fundación',
       description: 'Creá campañas, gestioná tus voluntarios y generá impacto visible en la comunidad.',
       action: 'Registrar mi fundación',
       style: 'outline',
-      href: '/register-foundation',
+      href: '/register',
     },
   ];
 

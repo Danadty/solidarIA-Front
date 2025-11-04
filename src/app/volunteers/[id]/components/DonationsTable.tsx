@@ -12,7 +12,7 @@ import TableRow from '@mui/material/TableRow';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
-import { DonationsAPI } from '../../../../lib';
+import { DonationsAPI } from '../../../../lib/api/donations.api';
 
 enum TITLE_LAST_DONATIONS {
   FOUNDATION = "Fundación",
@@ -108,21 +108,14 @@ export default function DonationsTable({ userId }: DonationsTableProps) {
 
   const loadUserDonations = async () => {
     try {
-      setLoading(true);
-      console.log("Cargando donaciones para userId:", userId);
-      
+      setLoading(true);      
       const response = await DonationsAPI.getByUser(userId);
-      console.log("Respuesta de donaciones:", response);
-      
-      // Los datos vienen en response.data.data.donations
       const donationsData = response.data?.data?.donations || [];
-      console.log("Donaciones encontradas:", donationsData);
-      
       setDonations(donationsData);
       
     } catch (error) {
-      console.error("Error loading donations:", error);
-      setError("Error al cargar las donaciones");
+      console.warn("Error loading donations:", error);
+      setError("Necesitas estar loguado para ver historial de donaciones.");
     } finally {
       setLoading(false);
     }
@@ -174,8 +167,13 @@ export default function DonationsTable({ userId }: DonationsTableProps) {
         maxWidth: '800px',
          py: 3, 
          textAlign: 'center' }}>
-        <Typography sx={{ color: 'var(--color-1)', opacity: 0.8 }}>
+        <Typography sx={{ color: 'var(--color-1)'}}>
           No se encontraron donaciones
+        </Typography>
+        <Typography sx={{ 
+          color: 'var(--color-3)',
+        }}>
+          Este voluntario no ha realizado ninguna donación aún.
         </Typography>
       </Paper>
     );
