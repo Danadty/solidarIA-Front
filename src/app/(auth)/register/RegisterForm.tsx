@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import styles from "../../../styles/FormLayout.module.css";
 import { UserAPI } from "../../../lib/api/user.api";
 import "./registerStyle.css";
+import { toast } from "sonner";
 type FormState = {
   name: string;
   email: string;
@@ -61,7 +62,8 @@ export default function RegisterForm() {
     e.preventDefault();
     const msg = validate();
     if (msg) {
-      setErrors(msg);
+      //setErrors(msg);
+      toast.error(msg);
       return;
     }
 
@@ -83,14 +85,15 @@ export default function RegisterForm() {
       localStorage.setItem("email", data.email);
       localStorage.setItem("role", data.role);
 
-      alert("Cuenta creada con éxito. Ahora podés iniciar sesión.");
+      toast.success("Cuenta creada con éxito. Ahora podés iniciar sesión.");
       router.push("/login?registered=1");
     } catch (err: any) {
-      setErrors(
+      const errorMsg =
         err.response?.data?.message ||
         err.message ||
-        "Error de conexión o datos inválidos"
-      );
+        "Error de conexión o datos inválidos";
+
+      toast.error(errorMsg);
     } finally {
       setLoading(false);
     }

@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import styles from "../../../../styles/FormLayout.module.css";
 import "./createFoundation.css";
+import { toast } from 'sonner';
 
 
 interface Props {
@@ -43,10 +44,11 @@ export default function CreateFoundationForm({ token, userId, onCreated }: Props
         const errData = await res.json();
         throw new Error(errData.message || 'Error creating foundation');
       }
-
+      toast.success('Fundación creada exitosamente');
       onCreated(); // notifica que la fundación se creó
     } catch (err: any) {
-      setError(err.message);
+      //setError(err.message);
+      toast.error(err.message);
     } finally {
       setLoading(false);
     }

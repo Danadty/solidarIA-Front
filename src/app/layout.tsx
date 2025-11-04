@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { AuthProvider } from '../lib';
 import Chatbot from "./components/chatbot";
 import SiteFooter from './components/SiteFooter';
+import { Toaster } from "sonner"; // 👈 Importá Sonner
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -16,11 +17,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <AuthProvider>
           {/* <Header isLoggedIn={isProfilePage} /> */}
           <Header />
+          <Toaster richColors position="top-center" />
+
           {children}
           <Chatbot />
         </AuthProvider>
         <SiteFooter />
-        
+
       </body>
     </html>
   );
