@@ -17,7 +17,6 @@ interface ActivityCardProps {
 
 export default function ActivityCard({
   campaign,
-  buttonText = "Ver Campaña",
 }: ActivityCardProps) {
   const { id, title, description, start_Date, end_Date } = campaign;
 
@@ -52,9 +51,6 @@ export default function ActivityCard({
           </span>
         </div>
 
-        <Link href={`/campaigns/${id}`} className={styles.button}>
-          {buttonText}
-        </Link>
       </div>
     </div>
   );

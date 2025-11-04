@@ -82,7 +82,6 @@ export default function UserActivitiesSection({ userId }: UserActivitiesSectionP
           <ActivityCard
             key={campaign.id}
             campaign={campaign}
-            buttonText="Ver Campaña"
           />
         ))}
       </div>
