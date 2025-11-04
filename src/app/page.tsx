@@ -169,7 +169,7 @@ export default function HomePage() {
       description: 'Creá campañas, gestioná tus voluntarios y generá impacto visible en la comunidad.',
       action: 'Registrar mi fundación',
       style: 'outline',
-      href: '/register-foundation',
+      href: '/register',
     },
   ];
 
