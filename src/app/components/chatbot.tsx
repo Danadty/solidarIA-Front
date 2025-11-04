@@ -32,6 +32,12 @@ export default function Chatbot() {
             setTimeout(() => scrollToBottom(), 100); // espera a que se rendericen los mensajes
         }
     }, [open]);
+    useEffect(() => {
+  if (open && messages.length === 0) {
+    setMessages([{ sender: "bot", text: "👋 ¡Hola! Soy SolidarIA. ¿En qué puedo ayudarte hoy?" }]);
+  }
+}, [open]);
+
 
     const sendMessage = async () => {
         if (!input.trim()) return;
@@ -182,7 +188,10 @@ export default function Chatbot() {
                             onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
                             disabled={loading}
                         />
-                        <Button variant="contained" color="success" onClick={sendMessage} disabled={loading}>
+                        <Button variant="contained" color="success" onClick={sendMessage} disabled={loading}
+                            sx={{ height: 'fit-content', alignSelf: 'flex-end', px: 2.5 }}
+
+                        >
                             Enviar
                         </Button>
                     </Box>

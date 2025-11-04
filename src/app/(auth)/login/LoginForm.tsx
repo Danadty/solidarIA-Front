@@ -6,6 +6,7 @@ import styles from "../../../styles/FormLayout.module.css";
 import { AuthAPI } from "../../../lib/api/auth.api";
 import "./loginStyle.css";
 import CreateFoundationForm from './components/createFoundation';
+import { toast } from "sonner";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -53,18 +54,21 @@ export default function LoginForm() {
 
         if (!hasFoundation) {
           // mostrar mini-form o redirigir a creación
+          toast.info("completa la información de tu fundación");
           setShowFoundationForm(true);
           return; // importante para no ir al home todavía
         }
       }
-
+      toast.success("iniciaste sesión con éxito");
       router.push("/");
     } catch (err: any) {
       const msg =
         err.response?.data?.message ||
         err.message ||
         "Error de conexión o credenciales inválidas";
-      setError(msg);
+      toast.error(msg);
+      //setError(msg);
+      toast.error(msg);
     } finally {
       setLoading(false);
     }
@@ -137,7 +141,12 @@ export default function LoginForm() {
         <CreateFoundationForm
           token={token}
           userId={userId}
-          onCreated={() => router.push("/")}
+          onCreated={() => {
+            router.push("/");
+            setTimeout(() => {
+              window.location.reload();
+            }, 1200);
+          }}
         />
       )}
     </div>
