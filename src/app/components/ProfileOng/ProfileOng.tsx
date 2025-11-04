@@ -1,6 +1,8 @@
+"use client"
 import "./ProfileOng.css"; // Importamos el CSS puro
 import PasarelaPagos from "../PasarelaPagos/PasarelaPagos";
 import CampaignComponent from "./Campaign/Campaign";
+import { useEffect, useState } from "react";
 
 interface Donation {
   id: string;
@@ -74,6 +76,11 @@ const OngProfile: React.FC<OngProfileProps> = ({
     return num.toString();
   };
 
+  const [role, setRole] = useState<string | null>(null);
+  useEffect(() => {
+    setRole(localStorage.getItem("role"));
+  }, []);
+  
   return (
     <div className="profile-container" key={id}>
       {/* --- 1. Encabezado (Portada y Perfil) --- */}
@@ -90,12 +97,16 @@ const OngProfile: React.FC<OngProfileProps> = ({
           </div>
           <h1 className="profile-name">{name}</h1>
           <div className="profile-cta-buttons">
-            <a className="profile-button-primary" href="#donarMas" >
-              Donar ahora
-            </a>
-            <a className="profile-button-secondary" href="/volunteers#Sumarme">
-              Ser voluntario
-            </a>
+            {role !== "FOUNDATION" && (
+              <a className="profile-button-primary" href="#donarMas">
+                Donar ahora
+              </a>
+            )}
+            {role === "USER" && (
+              <a className="profile-button-secondary" href="/registrar">
+                Ser voluntario
+              </a>
+            )}
           </div>
         </div>
       </header>
@@ -234,16 +245,18 @@ const OngProfile: React.FC<OngProfileProps> = ({
             
           </div>
           {/*Sección: donar*/}
-          <div id="donarMas">
-          <PasarelaPagos 
-              ongId={id} 
-              ongName={name} 
-              contact_email={contact_email} 
-              contact_phone={contact_phone} 
-              monto={1000}
-            />
-            
-             </div>
+          {role !== "FOUNDATION" && (
+            <div id="donarMas">
+              <PasarelaPagos 
+                ongId={id} 
+                ongName={name} 
+                contact_email={contact_email} 
+                contact_phone={contact_phone} 
+                monto={1000}
+              />
+            </div>
+          )}
+
           {/* Sección: Impacto Social */}
           <div className="profile-section">
             <h2 className="section-title">Impacto Social</h2>

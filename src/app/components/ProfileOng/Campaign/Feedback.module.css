@@ -1,0 +1,38 @@
+.feedback-message {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-weight: 500;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid;
+    animation: slideIn 0.3s ease-out;
+    
+    position: absolute;
+    top: 92%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    width: 90%;
+    max-width: 500px;
+}
+
+/* Estados separados */
+.success {
+    background-color: #f0f9f4;
+    color: #0d6832;
+    border-color: #b8e6cb;
+}
+
+.error {
+    background-color: #fef0f0;
+    color: #d0302d;
+    border-color: #f5c6cb;
+}
+
+.info {
+    background-color: #f0f7ff;
+    color: #0066cc;
+    border-color: #b8d4f0;
+}
